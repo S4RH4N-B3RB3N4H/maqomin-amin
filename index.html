@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MAQOMIN AMIN</title>
+<link rel="preconnect" href="https://script.google.com">
+<link rel="preconnect" href="https://script.googleusercontent.com" crossorigin>
+<style>
+body{margin:0;background:#080d0b}
+#ld{position:fixed;inset:0;display:grid;place-items:center;text-align:center;padding:20px;font:14px system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#8b9d95}
+#ld b{display:block;color:#e6eee9;font-size:24px;letter-spacing:-.5px;margin-bottom:8px}
+#ld button{display:block;margin:16px auto 0;border:0;border-radius:12px;padding:11px 18px;font:inherit;font-weight:700;background:#0f7a62;color:#fff;cursor:pointer}
+</style></head><body>
+<div id="ld"><div><b>MAQOMIN AMIN</b><span>Memuat...</span></div></div>
+<script>
+/* Pemuat MAQOMIN AMIN untuk GitHub Pages.
+   Tugasnya: (1) memuat app.html (kode asli Anda, tidak diubah), (2) meniru google.script.run di browser
+   sehingga semua panggilan ke server otomatis diteruskan ke Apps Script lewat link /exec di bawah. */
+(()=>{
+const API_URL='https://script.google.com/macros/s/AKfycbxpMWuuDJmQrOeTX7m5jiH4a7zqHDNrsjTf3-j4wiU_ArrC-Oul0uCRNLPqaB8-su6s/exec';
+
+// Aksi BACA boleh diulang otomatis 1x bila jaringan putus sesaat. Aksi TULIS tidak pernah diulang (agar data tidak dobel).
+const SAFE=new Set(['boot','foto','hfzSan','plgSan','fltData','hfzGet','hfzHist','plgHist','absGet','absHist','rekap']);
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+
+function post(fn,args){
+  const body=JSON.stringify({fn,args}),
+    safe=fn=='pub'||fn=='sosGet'||(fn=='api'&&SAFE.has(args[0])),
+    once=()=>{
+      const c=new AbortController(),t=setTimeout(()=>c.abort(),60000);
+      return fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body,signal:c.signal})
+        .then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json()})
+        .finally(()=>clearTimeout(t))};
+  return once().catch(e=>safe?sleep(900).then(once):Promise.reject(e))}
+
+// ---- Gambar latar login: tampil seketika dari memori perangkat, diunduh ulang hanya bila diganti ----
+const okImg=s=>typeof s=='string'&&/^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+\/=]+$/.test(s);
+const setBg=v=>{const e=document.getElementById('lbg');if(e)e.style.backgroundImage=okImg(v)?'url("'+v+'")':''};
+let cached='',bv='';
+try{cached=localStorage.getItem('ma_bg')||'';bv=cached?(localStorage.getItem('ma_bv')||''):''}catch(e){}
+const PUBP=post('pub',[bv]).catch(()=>null);   // dikirim sekarang, berbarengan dengan pemuatan app.html
+function applyPub(r){
+  if(!r||!r.ok||!('bg' in r))return;
+  setBg(r.bg);
+  try{if(r.bg)localStorage.setItem('ma_bg',r.bg);else localStorage.removeItem('ma_bg');localStorage.setItem('ma_bv',String(r.bv))}
+  catch(e){try{localStorage.removeItem('ma_bg');localStorage.removeItem('ma_bv')}catch(x){}}}
+
+// ---- Tiruan google.script.run ----
+let firstSos=true;   // pemanggilan sosGet pertama (banner login) dijawab dari data 'pub' agar hemat 1 permintaan
+function call(fn,args){
+  if(fn=='sosGet'&&firstSos){firstSos=false;return PUBP.then(r=>r&&r.ok?{ok:true,d:r.sos}:post(fn,args))}
+  return post(fn,args)}
+const mk=h=>new Proxy({},{get:(t,k)=>{
+  if(typeof k!='string'||k=='then')return undefined;
+  if(k=='withSuccessHandler')return f=>mk(Object.assign({},h,{ok:f}));
+  if(k=='withFailureHandler')return f=>mk(Object.assign({},h,{no:f}));
+  return(...a)=>{call(k,a).then(r=>{if(h.ok)h.ok(r)},()=>{if(h.no)h.no(new Error('Gagal terhubung ke server. Periksa internet lalu coba lagi'))})}}});
+window.google={script:{run:mk({})}};
+
+// ---- Muat app.html lalu jalankan persis seperti halaman biasa (urutan elemen dan skrip dipertahankan) ----
+const ld=document.getElementById('ld');
+const fail=m=>{ld.innerHTML='<div><b>MAQOMIN AMIN</b><span></span><button type="button">Coba lagi</button></div>';
+  ld.querySelector('span').textContent=m;ld.querySelector('button').onclick=()=>location.reload()};
+const fresh=s=>{const n=document.createElement('script');for(const a of s.attributes)n.setAttribute(a.name,a.value);n.textContent=s.textContent;return n};
+
+fetch('app.html',{cache:'no-cache'}).then(r=>{if(!r.ok)throw 0;return r.text()}).then(t=>{
+  const doc=new DOMParser().parseFromString(t,'text/html');
+  if(!doc.getElementById('login'))throw 0;   // app.html salah / kosong
+  const l=doc.getElementById('lbg');if(l)l.removeAttribute('style');   // sisa tag template Apps Script dibuang; gambar diisi lewat setBg
+  document.title=doc.title||'MAQOMIN AMIN';
+  doc.head.querySelectorAll('style').forEach(s=>document.head.appendChild(document.importNode(s,true)));
+  ld.remove();
+  for(const nd of [...doc.body.childNodes]){
+    if(nd.nodeName=='SCRIPT'){document.body.appendChild(fresh(nd));continue}
+    const c=document.importNode(nd,true);
+    if(c.querySelectorAll)c.querySelectorAll('script').forEach(s=>s.replaceWith(fresh(s)));
+    document.body.appendChild(c)}
+  setBg(cached);
+  PUBP.then(applyPub)
+}).catch(()=>fail('Gagal memuat aplikasi. Periksa internet lalu coba lagi.'));
+})();
+</script>
+</body></html>
