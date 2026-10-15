@@ -1,0 +1,1791 @@
+<!DOCTYPE html>
+<html lang="id"><head><base target="_top"><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MAQOMIN AMIN</title>
+<style>
+:root{color-scheme:dark;--bg:#080d0b;--bg2:#0e1512;--card:#121b17;--c2:#1a2721;--ln:#22302a;--tx:#e6eee9;--mu:#8b9d95;--g1:#0f7a62;--g2:#1fb08e;--gold:#d9a93f;--r:16px;--dbg:radial-gradient(circle at 15% 10%,#12856b55,transparent 50%),radial-gradient(circle at 90% 95%,#d9a93f30,transparent 45%),linear-gradient(160deg,#0a241d,#040806)}
+*{box-sizing:border-box;margin:0}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--tx);min-height:100vh}
+button,input,select,textarea{font:inherit}
+button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+button:focus-visible,.in:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.hide{display:none!important}.mu{color:var(--mu)}
+small{display:block;color:var(--mu);font-size:12px}
+.btn{border:0;border-radius:12px;padding:11px 18px;font-weight:700;cursor:pointer;background:var(--g1);color:#fff;transition:background .15s}
+.btn:hover{background:#14937a}.btn:active{transform:scale(.97)}.btn:disabled{opacity:.6}
+.btn.o{background:none;color:var(--tx);border:1.5px solid var(--ln)}.btn.o:hover{background:var(--c2)}
+.btn.d{background:none;color:#ff8a80;border:1.5px solid #4a2a28}.btn.d:hover{background:#2a1716}
+.in{width:100%;padding:12px 14px;border:1.5px solid var(--ln);border-radius:12px;background:var(--bg2);color:var(--tx);outline:0;transition:border-color .15s}
+.in:focus{border-color:var(--g2);box-shadow:0 0 0 4px #1fb08e22}
+.in:-webkit-autofill{-webkit-text-fill-color:var(--tx);box-shadow:0 0 0 100px var(--bg2) inset}
+select.in option{background:var(--card);color:var(--tx)}
+label{display:block;font-size:13px;font-weight:600;color:var(--mu);margin:14px 0 6px}
+.pw{position:relative}.pw .in{padding-right:84px}
+.pw button{position:absolute;right:8px;top:50%;transform:translateY(-50%);border:0;background:none;color:var(--g2);font-weight:700;font-size:13px;cursor:pointer;padding:6px 8px}
+/* Login: gambar latar penuh, form di tengah */
+#login{position:fixed;inset:0;display:flex;overflow-y:auto;padding:20px;background:#050907;z-index:10}
+#lbg{position:fixed;inset:0;background:var(--dbg);background-size:cover;background-position:center;background-repeat:no-repeat}
+.shade{position:fixed;inset:0;background:linear-gradient(180deg,#0206044d,#02060499)}
+.box{position:relative;margin:auto;width:100%;max-width:400px;padding:34px 30px;background:#0a110ed9;border:1px solid #ffffff1c;border-radius:24px;box-shadow:0 30px 80px #000c}
+.box h1{font-size:34px;letter-spacing:-1px;font-weight:800;line-height:1;margin-bottom:10px;border-left:4px solid var(--gold);padding-left:12px}
+.hint{margin-top:16px;font-size:13px;line-height:1.5;color:var(--mu)}
+header{position:sticky;top:0;z-index:20;background:#0b120f;border-bottom:1px solid var(--ln);display:flex;align-items:center;gap:16px;padding:12px 28px}
+.brand{font-weight:800;letter-spacing:-.4px;white-space:nowrap;font-size:18px;border-left:4px solid var(--gold);padding-left:12px}
+.sw{position:relative;flex:1;max-width:520px;margin:0 auto}
+#res{position:absolute;top:calc(100% + 8px);left:0;right:0;background:var(--card);border-radius:16px;box-shadow:0 20px 50px #000a;border:1px solid var(--ln);max-height:340px;overflow-y:auto}
+#res>div{display:flex;gap:12px;align-items:center;padding:10px 14px;cursor:pointer}#res>div:hover{background:var(--c2)}
+.me{display:flex;align-items:center;gap:10px;font-size:14px;text-align:right}
+.sw.hide+.me{margin-left:auto}
+.ava{width:48px;height:48px;border-radius:15px;background:linear-gradient(135deg,var(--g2),#0b4a3a);color:#fff;display:grid;place-items:center;font-weight:800;flex:none;overflow:hidden}
+.ava.s{width:36px;height:36px;border-radius:11px;font-size:13px}.ava img{width:100%;height:100%;object-fit:cover}
+.ava.big{width:100%;height:100%;border-radius:0;font-size:64px}
+main{max-width:1100px;margin:0 auto;padding:26px 28px}
+.tabs{display:flex;gap:6px;background:var(--card);padding:5px;border-radius:14px;width:max-content;max-width:calc(100% - 32px);overflow-x:auto;margin:22px auto 0}
+.tabs button{border:0;background:none;padding:9px 20px;border-radius:10px;font-weight:700;color:var(--mu);cursor:pointer;white-space:nowrap}
+.tabs button.on{background:var(--c2);color:var(--tx)}
+.denah-h{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
+.denah-h h2{font-size:22px;letter-spacing:-.5px}
+.denah-h h3{font-size:18px;letter-spacing:-.3px}
+.denah{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:10px;padding:14px;background:var(--card);border:1px solid var(--ln);border-radius:20px}
+.denah button{border:1.5px solid var(--ln);background:var(--bg2);border-radius:14px;padding:12px 6px;cursor:pointer;color:var(--tx);transition:border-color .15s,background .15s}
+.denah button b{display:block;font-size:26px;letter-spacing:-1px;line-height:1}
+.denah button span{font-size:11px;color:var(--mu);font-weight:600}
+.denah button.fill{background:#133027;border-color:#1f5a47}
+.denah button.on{background:var(--g1);border-color:var(--g2)}.denah button.on span{color:#c8efe2}
+.denah button:hover{border-color:var(--g2)}
+.bar{display:flex;justify-content:space-between;align-items:center;margin:28px 0 14px;gap:12px}
+.bar h3{font-size:20px;letter-spacing:-.4px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.card{background:var(--card);border:1px solid var(--ln);border-radius:var(--r);padding:14px;display:flex;align-items:center;gap:12px;cursor:pointer;text-align:left;width:100%;color:var(--tx);transition:border-color .15s;content-visibility:auto;contain-intrinsic-size:auto 76px}
+.card:hover{border-color:var(--g2)}
+.card b{display:block;line-height:1.25}
+.pill{display:inline-block;background:#133027;color:#7fe0c4;font-size:12px;font-weight:700;padding:4px 12px;border-radius:99px}
+.empty{grid-column:1/-1;text-align:center;padding:48px 16px;color:var(--mu);background:var(--card);border:1.5px dashed var(--ln);border-radius:var(--r)}
+/* Jendela (modal): overflow-y:auto membuat jendela bisa di-scroll; overscroll-behavior mencegah halaman di belakangnya ikut tergulir */
+.modal{position:fixed;inset:0;background:#000000b8;display:flex;padding:16px;z-index:50;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.sheet{background:var(--card);border:1px solid var(--ln);border-radius:24px;width:100%;max-width:460px;margin:auto;position:relative;overflow:hidden;animation:up .15s ease-out}
+@keyframes up{from{transform:translateY(12px);opacity:0}}
+.x{position:absolute;top:14px;right:14px;z-index:2;width:36px;height:36px;border-radius:50%;border:0;background:#000a;color:#fff;cursor:pointer;font-weight:700}
+/* Tombol Keluar santri biasa: pojok kanan atas layar, tetap terlihat saat di-scroll */
+.lo{position:fixed;top:14px;right:14px;z-index:3;border:1.5px solid #ffffff33;border-radius:99px;padding:9px 18px;background:#0a110ee6;color:#fff;font-weight:700;cursor:pointer;transition:background .15s,color .15s,border-color .15s}
+.lo:hover{background:#2a1716;border-color:#4a2a28;color:#ff8a80}.lo:active{transform:scale(.97)}
+.ph{height:290px;background:var(--bg2)}.ph img{width:100%;height:100%;object-fit:cover}
+.dt{padding:24px}.dt h2{font-size:26px;letter-spacing:-.6px;margin-bottom:8px;line-height:1.15}.dt h3{font-size:19px}
+.rows{margin-top:18px;display:grid;gap:14px}.rows p{margin-top:2px;font-weight:600;line-height:1.5;white-space:pre-wrap}
+.acts{display:flex;gap:10px;margin-top:22px}.acts .btn{flex:1}
+/* Formulir / detail santri (layar penuh): align-self:flex-start + overflow:visible membuat tinggi jendela mengikuti isi, sehingga bisa di-scroll ke bawah */
+.sheet.full{max-width:none;min-height:100%;margin:0;border:0;border-radius:0;display:grid;grid-template-columns:minmax(300px,40%) 1fr;animation:none;align-self:flex-start;overflow:visible}
+#md.full{padding:0}
+.sheet.full .ph{position:sticky;top:0;height:100vh}
+.sheet.full .x{position:fixed}
+.sheet.full .dt{padding:56px 6vw 40px 48px;max-width:820px}
+.sheet.full .dt h2{font-size:34px}
+.fp .ava.big{font-size:22px;color:var(--mu);background:var(--bg2)}
+.pk{position:absolute;left:0;right:0;bottom:0;padding:56px 16px 22px;background:linear-gradient(transparent,#000d);display:grid;justify-items:center;gap:8px}
+@media(max-width:640px){.sheet.full{display:block}.sheet.full .ph{position:relative;height:300px}.sheet.full .dt{padding:24px 20px}}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.panel{background:var(--card);border:1px solid var(--ln);border-radius:var(--r);padding:22px;margin-bottom:18px;overflow-x:auto}
+.bgprev{position:relative;height:220px;border-radius:14px;margin:16px 0;border:1px solid var(--ln);background:var(--dbg);background-size:cover;background-position:center}
+.bgprev span{position:absolute;left:12px;bottom:12px;background:#000a;color:#fff;font-size:12px;font-weight:600;padding:5px 12px;border-radius:99px}
+table{width:100%;border-collapse:collapse}td,th{text-align:left;padding:12px;border-bottom:1px solid var(--ln);font-size:14px}th{color:var(--mu);font-weight:600}
+#toast{position:fixed;bottom:26px;left:50%;transform:translate(-50%,120px);background:var(--g1);color:#fff;padding:12px 22px;border-radius:14px;font-weight:600;transition:transform .25s;z-index:99}
+#toast.show{transform:translate(-50%,0)}#toast.err{background:#b8352a}
+@media(max-width:800px){header{flex-wrap:wrap;padding:12px 16px}.sw{order:3;flex-basis:100%;max-width:none}.me>div:first-child{display:none}main{padding:18px 16px}.g2{grid-template-columns:1fr}.box{padding:28px 22px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.in.ab-s{width:250px}
+.ab-s.s0{border-color:#1f5a47;color:#7fe0c4}.ab-s.s1{border-color:#7a5f1f;color:var(--gold)}.ab-s.s2{border-color:#6b2f2a;color:#ff8a80}
+/* Mode absen: semua pembina / per orang */
+.seg{display:inline-flex;flex-wrap:wrap;gap:6px;background:var(--bg2);padding:5px;border-radius:14px;border:1px solid var(--ln)}
+.seg button{border:0;background:none;padding:10px 18px;border-radius:10px;font-weight:700;color:var(--mu);cursor:pointer;white-space:nowrap}
+.seg button:hover{color:var(--tx)}
+.seg button.on{background:var(--g1);color:#fff}
+#ab_pw{max-width:380px;margin-bottom:6px}
+#ab_pw+table{margin-top:14px}
+/* Riwayat input absensi */
+.hs-t td{vertical-align:middle}
+.hs-t td.hs-a{white-space:nowrap;text-align:right}
+.hs-t .btn{padding:7px 12px;font-size:13px;margin-left:6px}
+.hs-d>td{background:var(--bg2)}
+.hs-l div{display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--ln)}
+.hs-l div:last-child{border-bottom:0}
+.hs-l span{width:84px;flex:none;color:var(--mu);font-size:13px}
+.hs-l b{flex:1;min-width:120px}
+.hs-l em{font-style:normal;font-weight:700;min-width:110px;text-align:right}
+.hs-l em.s0{color:#7fe0c4}.hs-l em.s1{color:var(--gold)}.hs-l em.s2{color:#ff8a80}
+.hs-l .btn{padding:6px 11px;font-size:13px}
+/* Rekap absensi */
+.rk-f{display:flex;flex-wrap:wrap;gap:12px}
+.rk-f>div{flex:1 1 170px;max-width:240px}
+.chk{display:inline-flex;align-items:center;gap:10px;margin-top:18px;border:1.5px solid var(--ln);background:var(--bg2);color:var(--tx);border-radius:12px;padding:12px 16px;font-weight:700;cursor:pointer;transition:border-color .15s,background .15s}
+.chk i{width:20px;height:20px;border-radius:6px;border:2px solid var(--mu);display:grid;place-items:center;flex:none;font-style:normal;font-size:13px;line-height:1;color:transparent}
+.chk:hover{border-color:var(--g2)}
+.chk.on{background:#133027;border-color:var(--g2)}
+.chk.on i{background:var(--g2);border-color:var(--g2);color:#04130e}
+.rk-sum{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:14px;min-height:28px;font-size:14px}
+.rk-t th,.rk-t td{white-space:nowrap}
+.rk-t .n{text-align:right;font-variant-numeric:tabular-nums}
+.rk-t td.r{color:var(--mu);font-weight:700;font-variant-numeric:tabular-nums}
+.rk-t td.r.gold{color:var(--gold)}
+.rk-t td.tot{font-weight:800;color:var(--gold)}
+/* Input hafalan (admin pembina) */
+.hf-bt{font-size:17px;letter-spacing:-.3px;margin:24px 0 0}
+.uw{position:relative;display:flex;align-items:center;min-width:132px}
+.uw .in{padding:10px 64px 10px 10px;text-align:right;font-variant-numeric:tabular-nums;-moz-appearance:textfield;appearance:textfield}
+.uw .in::-webkit-outer-spin-button,.uw .in::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.uw .su{position:absolute;right:11px;top:50%;transform:translateY(-50%);color:var(--mu);font-size:12px;font-weight:700;pointer-events:none}
+.uw.pf .in{padding:10px 10px 10px 74px;text-align:left}
+.uw.pf .su{right:auto;left:11px}
+.uw .in.inv{border-color:#6b2f2a;box-shadow:0 0 0 3px #ff6b5e22}
+.uw .in.inv:focus{border-color:#ff6b5e}
+.rk-f .uw{width:100%}
+.hf-t td{padding:8px 10px;white-space:nowrap}
+.hf-t td.nm{white-space:normal;min-width:190px}
+.hf-t td.nm,.hf-t th:nth-child(2){position:sticky;left:0;z-index:1;background:var(--card)}
+.hf-t td.r{color:var(--mu);font-weight:700;font-variant-numeric:tabular-nums}
+.hf-t td.tt{font-weight:800;color:var(--gold);min-width:96px}
+.hf-t tr.hl td{background:#133027}
+/* Tombol cepat pecahan Muroja'ah */
+.fr-pad{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:14px}
+.fr-pad>span{font-size:13px;font-weight:600;color:var(--mu)}
+.fr-pad .btn{padding:6px 14px;font-size:18px;line-height:1.2;min-width:46px}
+.fr-pad small{flex-basis:100%;line-height:1.5}
+.hh-l div{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;padding:10px 0;border-bottom:1px solid var(--ln)}
+.hh-l div:last-child{border-bottom:0}
+.hh-l div>b{flex:1 1 190px;min-width:150px}
+.hh-l div>p{flex:3 1 340px;display:flex;flex-wrap:wrap;gap:2px 16px;font-size:13px;color:var(--mu);line-height:1.8}
+.hh-l strong{color:var(--tx)}
+.hh-l .btn{padding:6px 11px;font-size:13px}
+/* Formulir santri: menu Data Diri / Data Hafalan / Data Pelanggaran */
+.seg.mt{display:grid;grid-template-columns:1fr 1fr 1fr;width:100%;margin:18px 0 0}
+.seg.mt button{padding:10px 6px;white-space:normal;line-height:1.25}
+.fs{margin:28px 0 0;padding-top:18px;border-top:1px solid var(--ln);font-size:16px;font-weight:800;letter-spacing:-.2px}
+.fs.first{margin-top:14px;padding-top:0;border-top:0}
+.fs+label{margin-top:10px}
+.uw.hp{min-width:0}
+.uw.hp .in{padding:12px 14px 12px 56px;text-align:left}
+.uw.hp .su{right:auto;left:14px;font-size:14px;color:var(--tx)}
+/* Data Hafalan di formulir santri: satu kartu per bulan (hijau = batas terpenuhi, merah = di bawah batas) */
+#hv_b .empty{margin-top:16px}
+.hv-s{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;margin-top:18px;font-size:13px;font-weight:600}
+.hv-s .ok{color:#7fe0c4}.hv-s .bad{color:#ff8a80}
+.hv{margin-top:12px;padding:16px 18px;border:1.5px solid var(--ln);border-left-width:6px;border-radius:14px;background:var(--bg2)}
+.hv.ok{background:#0f2a22;border-color:#1f5a47;border-left-color:var(--g2)}
+.hv.bad{background:#2a1716;border-color:#6b2f2a;border-left-color:#ff6b5e}
+.hv.na{border-left-color:var(--mu)}
+.hv-h{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:8px 12px}
+.hv-h b{display:block;font-size:17px;letter-spacing:-.3px}
+.hv-b{font-size:12px;font-weight:800;padding:4px 12px;border-radius:99px;white-space:nowrap;background:var(--c2);color:var(--mu)}
+.hv.ok .hv-b{background:#133027;color:#7fe0c4}
+.hv.bad .hv-b{background:#3a1c1a;color:#ff8a80}
+.hv-g{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px 16px;margin-top:14px}
+.hv-c b{display:block;margin-top:2px;font-size:16px;font-variant-numeric:tabular-nums}
+.hv-c em{display:block;margin-top:2px;font-style:normal;font-size:11px;color:var(--mu)}
+.hv-c.ok b{color:#7fe0c4}
+.hv-c.bad b,.hv-c.bad em{color:#ff8a80}
+.hv-n{margin-top:16px;font-size:12px;line-height:1.5}
+/* Kirim Chat (admin pembina) */
+.ct-t td{vertical-align:middle}
+.ct-t td.r{color:var(--mu);font-weight:700;font-variant-numeric:tabular-nums;width:1%}
+.ct-t td.nm{white-space:normal;min-width:190px}
+.ct-t td.nm small.no{color:#ff8a80}
+.ct-t td.a{text-align:right;white-space:nowrap}
+.ct-t select.in{min-width:210px}
+.ct-t .btn{padding:10px 18px}
+/* Input pelanggaran (admin pembina) + Data Pelanggaran di formulir santri */
+.bw{display:inline-block;font-size:12px;font-weight:800;padding:4px 12px;border-radius:99px;white-space:nowrap;background:var(--c2);color:var(--mu)}
+.bw.b0{background:#3a1c1a;color:#ff8a80}
+.bw.b1{background:#3a2e12;color:var(--gold)}
+.bw.b2{background:#16283a;color:#8cc4ee}
+.pl-f textarea.in{resize:vertical;min-height:110px;line-height:1.5}
+.pl-t td{vertical-align:top}
+.pl-t td.pl-p{white-space:normal;min-width:150px}
+.pl-t td.pl-k{white-space:normal;min-width:220px;max-width:360px;color:var(--mu);line-height:1.5}
+#pg_b .empty{margin-top:16px}
+.pg{margin-top:12px;padding:16px 18px;border:1.5px solid var(--ln);border-left-width:6px;border-radius:14px;background:var(--bg2)}
+.pg.b0{background:#2a1716;border-color:#6b2f2a;border-left-color:#ff6b5e}
+.pg.b1{background:#2a2412;border-color:#7a5f1f;border-left-color:var(--gold)}
+.pg.b2{background:#111f2b;border-color:#2c4a63;border-left-color:#5aa9e0}
+.pg-k{margin-top:14px}
+.pg-k p{margin-top:2px;font-weight:600;line-height:1.5;white-space:pre-wrap;word-break:break-word}
+/* Menu Filter (super admin + admin pembina): kotak keterangan, panel filter, tabel data per santri menyamping */
+main#flt{max-width:1500px}
+.fl-sum{border-left:6px solid var(--gold);background:var(--bg2)}
+.fl-big{font-size:22px;font-weight:700;letter-spacing:-.4px;line-height:1.4}
+.fl-big b{color:var(--gold);font-size:30px;font-variant-numeric:tabular-nums}
+.fl-sub{margin-top:8px;font-size:13px;line-height:1.7;color:var(--mu)}
+.fl-p .fs{margin-top:20px;padding-top:14px}
+.fl-p .fs.first{margin-top:6px;padding-top:0}
+.fl-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:0 14px}
+.fl-g label{margin-top:12px}
+.fl-g .uw{min-width:0}
+.fl-p .chk{margin-top:20px}
+.fl-w{overflow:auto;max-height:72vh;border:1px solid var(--ln);border-radius:12px}
+.fl-t{border-collapse:separate;border-spacing:0;width:max-content;min-width:100%}
+.fl-t th,.fl-t td{white-space:nowrap;padding:9px 12px}
+.fl-t td.w{white-space:normal;min-width:170px;max-width:260px;line-height:1.45}
+.fl-t td.n,.fl-t th.n{text-align:right;font-variant-numeric:tabular-nums}
+.fl-t td.r{color:var(--mu);font-weight:700;font-variant-numeric:tabular-nums}
+.fl-t td.ok{color:#7fe0c4;font-weight:700}
+.fl-t td.bad{color:#ff8a80;font-weight:700}
+.fl-t td.b0{color:#ff8a80;font-weight:800}
+.fl-t td.b1{color:var(--gold);font-weight:800}
+.fl-t td.b2{color:#8cc4ee;font-weight:800}
+.fl-t thead th{position:sticky;z-index:3;background:var(--c2)}
+.fl-t thead .gh th{top:0;height:38px;padding:0 12px;font-size:12px;color:var(--tx);font-weight:800}
+.fl-t thead .ch th{top:38px}
+.fl-t thead th.gd{box-shadow:inset 0 -3px 0 var(--gold)}
+.fl-t thead th.gz{box-shadow:inset 0 -3px 0 var(--g2)}
+.fl-t thead th.gp{box-shadow:inset 0 -3px 0 #ff6b5e}
+.fl-t th[data-k]{cursor:pointer;user-select:none;-webkit-user-select:none}
+.fl-t th[data-k]:hover{color:var(--tx)}
+.fl-t th[data-k]:focus-visible{outline:3px solid var(--gold);outline-offset:-3px}
+.fl-t th.on{color:var(--gold)}
+.fl-t th.on::after{content:" \25B2"}
+.fl-t th.on.dn::after{content:" \25BC"}
+.fl-t .c0{left:0;min-width:52px;width:52px}
+.fl-t .c1{left:52px;min-width:200px;box-shadow:1px 0 0 var(--ln)}
+.fl-t td.sk{position:sticky;z-index:1;background:var(--card)}
+.fl-t thead th.sk{z-index:5}
+.fl-t thead .gh th.sk{left:0}
+.fl-t tbody tr{cursor:pointer}
+.fl-t tbody tr:hover td{background:var(--c2)}
+.fl-t tbody tr:focus-visible{outline:3px solid var(--gold);outline-offset:-3px}
+.st-b{display:inline-block;font-size:12px;font-weight:800;padding:3px 10px;border-radius:99px;background:var(--c2);color:var(--mu)}
+.st-b.ok{background:#133027;color:#7fe0c4}
+.st-b.bad{background:#3a1c1a;color:#ff8a80}
+</style></head><body>
+
+<div id="login">
+  <div id="lbg" style="<? if (bg) { ?>background-image:url('<?!= bg ?>')<? } ?>"></div>
+  <div class="shade"></div>
+  <div class="box">
+    <h1>MAQOMIN AMIN</h1>
+    <p class="mu">Masuk dengan username dan password Anda.</p>
+    <label for="lu">Username</label><input id="lu" class="in" autocomplete="username" autocapitalize="none" spellcheck="false">
+    <label for="lp">Password</label>
+    <div class="pw"><input id="lp" class="in" type="password" autocomplete="current-password"><button type="button" id="eye">Lihat</button></div>
+    <button class="btn" id="lb" style="width:100%;margin-top:22px">Masuk</button>
+    <p class="hint">Santri: username adalah nama panggilan, password adalah no. induk.</p>
+  </div>
+</div>
+
+<div id="app" class="hide">
+  <header>
+    <div class="brand">MAQOMIN AMIN</div>
+    <div class="sw hide" id="sw"><input id="q" class="in" placeholder="Cari nama santri..." autocomplete="off"><div id="res" class="hide"></div></div>
+    <div class="me"><div><b id="un"></b><small id="ur"></small></div><div class="ava s" id="av"></div></div>
+    <button class="btn o" onclick="logout()">Keluar</button>
+  </header>
+  <div class="tabs hide" id="tabs"><button class="on" data-v="home" data-r="super admin">Beranda</button><button data-v="hfz" data-r="admin">Input Hafalan</button><button data-v="chat" data-r="admin">Kirim Chat</button><button data-v="plg" data-r="admin">Input Pelanggaran</button><button data-v="flt" data-r="super admin">Filter</button><button data-v="adm" data-r="super">Kelola Admin</button><button data-v="abs" data-r="super">Absensi Pembina</button><button data-v="rkp" data-r="super">Rekap Absensi</button><button data-v="tpl" data-r="super">Tampilan Login</button></div>
+
+  <main id="home">
+    <div id="dn"></div>
+    <div class="bar"><h3 id="ttl"></h3><button class="btn" id="addb" onclick="formSantri()">+ Tambah Santri</button></div>
+    <div class="grid" id="grid"></div>
+  </main>
+
+  <main id="adm" class="hide">
+    <div class="panel"><h3 style="margin-bottom:4px">Tambah admin pembina kamar</h3>
+      <div class="g2">
+        <div><label>Username</label><input id="a_u" class="in"></div>
+        <div><label>Password</label><input id="a_p" class="in"></div>
+        <div><label>Nama pembina (opsional)</label><input id="a_n" class="in"></div>
+        <div><label>Kamar</label><select id="a_k" class="in" onchange="jb()"></select></div>
+      </div>
+      <p class="mu" style="margin:16px 0">Jabatan: <b id="a_j" style="color:var(--gold)"></b></p>
+      <button class="btn" onclick="addAdm()">Simpan admin</button>
+    </div>
+    <div class="panel"><table><thead><tr><th>Username</th><th>Password</th><th>Jabatan</th><th></th></tr></thead><tbody id="at"></tbody></table></div>
+  </main>
+
+  <main id="abs" class="hide">
+    <div class="panel">
+      <label for="ab_t" style="margin-top:0">Tanggal</label>
+      <input id="ab_t" type="date" class="in" style="max-width:240px">
+      <div class="g2">
+        <div><label for="ab_k">Kategori</label><select id="ab_k" class="in"></select></div>
+        <div><label for="ab_i" id="ab_il">Pilihan</label><select id="ab_i" class="in"></select><input id="ab_x" class="in hide" maxlength="200" placeholder="Tulis keterangan walisantri..."></div>
+      </div>
+      <p class="mu" id="ab_h" style="margin-top:14px;font-size:13px;min-height:1.2em"></p>
+    </div>
+    <div class="panel">
+      <div class="seg" id="ab_m" role="group" aria-label="Mode absensi"><button type="button" class="on" data-m="all">Absen semua pembina</button><button type="button" data-m="one">Absen per orang</button></div>
+      <div id="ab_pw" class="hide"><label for="ab_p">Pilih pembina (urut nomor kamar)</label><select id="ab_p" class="in"></select></div>
+      <table><thead><tr><th>Kamar</th><th>Nama pembina</th><th>Status</th></tr></thead><tbody id="ab_b"></tbody></table>
+      <div class="acts"><button class="btn" id="ab_s">Simpan absensi</button></div>
+    </div>
+    <div class="panel">
+      <div class="denah-h"><h3>Riwayat input absensi</h3><small id="hs_c"></small></div>
+      <table class="hs-t"><thead><tr><th>Tanggal</th><th>Kategori</th><th>Pilihan</th><th>Ringkasan</th><th></th></tr></thead><tbody id="hs_b"></tbody></table>
+      <p class="mu" style="margin-top:14px;font-size:13px;line-height:1.5">Edit memuat input ke form di atas, ubah statusnya lalu klik Simpan absensi. Hapus menghilangkan data dari sheet Absensi dan ikut mengubah rekap.</p>
+    </div>
+  </main>
+
+  <main id="rkp" class="hide">
+    <div class="panel">
+      <div class="rk-f">
+        <div><label for="rk_a" style="margin-top:0">Dari tanggal</label><input id="rk_a" type="date" class="in"></div>
+        <div><label for="rk_z" style="margin-top:0">Sampai tanggal</label><input id="rk_z" type="date" class="in"></div>
+      </div>
+      <button type="button" class="chk" id="rk_top" aria-pressed="false"><i>✓</i>Nilai tertinggi</button>
+      <p class="mu" id="rk_u" style="margin-top:10px;font-size:13px">Diurutkan berdasarkan kamar.</p>
+    </div>
+    <div class="panel">
+      <div class="rk-sum" id="rk_h"></div>
+      <table class="rk-t"><thead><tr><th>No</th><th>Nama pembina</th><th>Kamar</th><th class="n">Keaktifan di Kamar<small>dari 70%</small></th><th class="n">Keaktifan di Komplek<small>dari 10%</small></th><th class="n">Jama'ah<small>dari 15%</small></th><th class="n">Walisantri<small>dari 5%</small></th><th class="n">Total<small>dari 100%</small></th></tr></thead><tbody id="rk_b"></tbody></table>
+      <p class="mu" style="margin-top:14px;font-size:13px;line-height:1.5">Bobot: Keaktifan di Kamar 70%, Komplek 10%, Jama'ah 15%, Walisantri 5% (total 100%). Jika seluruh catatan Set. Hadir, nilai akhir 70%; jika seluruhnya Izin atau Setengah Rolas, nilai akhir 40%; jika seluruhnya Tidak Hadir atau Bahaya, nilai akhir 15%. Nilai dihitung dari absensi yang sudah tersimpan pada rentang tanggal; yang belum diabsen tidak mengurangi nilai.</p>
+    </div>
+  </main>
+
+  <main id="hfz" class="hide">
+    <div class="panel">
+      <h3 style="margin-bottom:2px">Input hafalan santri</h3>
+      <p class="mu" id="hf_kt" style="font-size:13px"></p>
+      <div class="rk-f">
+        <div><label for="hf_a" style="margin-top:16px">Dari tanggal</label><input id="hf_a" type="date" class="in"></div>
+        <div><label for="hf_z" style="margin-top:16px">Sampai tanggal</label><input id="hf_z" type="date" class="in"></div>
+      </div>
+      <h3 class="hf-bt">Batas minimal Tahfidh bulan ini</h3>
+      <div class="rk-f">
+        <div><label for="hf_bk" style="margin-top:12px">Keaktifan</label><div class="uw"><input id="hf_bk" class="in" type="number" inputmode="decimal" min="0" step="any"><span class="su">kali</span></div></div>
+        <div><label for="hf_bm" style="margin-top:12px">Muroja'ah</label><div class="uw"><input id="hf_bm" class="in" type="text" inputmode="text" autocomplete="off" autocapitalize="none" spellcheck="false" maxlength="14" placeholder="1 ½"><span class="su">Juz</span></div></div>
+      </div>
+      <p class="mu" id="hf_h" style="margin-top:14px;font-size:13px;min-height:1.2em"></p>
+    </div>
+    <div class="panel">
+      <div class="fr-pad" id="hf_fr"><span>Pecahan Muroja'ah</span><button type="button" class="btn o" data-c="½" aria-label="setengah">½</button><button type="button" class="btn o" data-c="⅓" aria-label="sepertiga">⅓</button><button type="button" class="btn o" data-c="⅔" aria-label="dua pertiga">⅔</button><button type="button" class="btn o" data-c="¼" aria-label="seperempat">¼</button><button type="button" class="btn o" data-c="¾" aria-label="tiga perempat">¾</button><small>Klik kotak Muroja'ah, lalu tekan tombol pecahan. Atau ketik langsung: 1 ½, ½, ⅓, 1 1/2, 1,5.</small></div>
+      <table class="hf-t"><thead><tr><th>No</th><th>Nama santri</th><th>Tambahan</th><th>Muroja'ah<small>boleh pecahan</small></th><th>Keaktifan</th><th>Halaman Terakhir<small>dari Tambahan</small></th><th>Hafalan Depan</th><th>Hafalan Belakang</th><th>Total Hafalan<small>Depan + Belakang</small></th></tr></thead><tbody id="hf_b"></tbody></table>
+      <div class="acts"><button class="btn" id="hf_s" disabled>Simpan hafalan</button></div>
+    </div>
+    <div class="panel">
+      <div class="denah-h"><h3>Riwayat input hafalan</h3><small id="hh_c"></small></div>
+      <table class="hs-t"><thead><tr><th>Periode</th><th>Batas minimal</th><th>Ringkasan</th><th></th></tr></thead><tbody id="hh_b"></tbody></table>
+      <p class="mu" style="margin-top:14px;font-size:13px;line-height:1.5">Edit memuat input ke form di atas, ubah angkanya lalu klik Simpan hafalan. Hapus menghilangkan data dari sheet Hafalan.</p>
+    </div>
+  </main>
+
+  <main id="chat" class="hide">
+    <div class="panel">
+      <h3 style="margin-bottom:2px">Kirim chat ke wali santri</h3>
+      <p class="mu" id="ct_kt" style="font-size:13px"></p>
+      <p class="mu" style="margin-top:10px;font-size:13px;line-height:1.5">Pilih data hafalan (periode yang sudah diinput di menu Input Hafalan) untuk tiap santri, lalu klik Kirim Pesan. WhatsApp terbuka langsung di nomor wali santri (dari Data Diri) dengan pesan yang sudah siap, tinggal tekan kirim.</p>
+      <p class="mu" id="ct_h" style="margin-top:10px;font-size:13px;min-height:1.2em"></p>
+    </div>
+    <div class="panel">
+      <table class="ct-t"><thead><tr><th>No</th><th>Nama santri</th><th>Pilih data</th><th></th></tr></thead><tbody id="ct_b"></tbody></table>
+      <p class="mu" style="margin-top:14px;font-size:13px;line-height:1.5">Pesan otomatis menyesuaikan hasil: jika Keaktifan dan Muroja'ah memenuhi batas minimal periode itu, pesan berisi ucapan selamat; jika ada yang di bawah batas, pesan berisi permintaan untuk mengingatkan ananda. Batas minimal periode harus sudah diisi di menu Input Hafalan.</p>
+    </div>
+  </main>
+
+  <main id="plg" class="hide">
+    <div class="panel pl-f">
+      <h3 id="pl_ft" style="margin-bottom:2px">Input pelanggaran santri</h3>
+      <p class="mu" id="pl_kt" style="font-size:13px"></p>
+      <div class="g2">
+        <div><label for="pl_t">Tanggal</label><input id="pl_t" type="date" class="in"></div>
+        <div><label for="pl_s">Santri</label><select id="pl_s" class="in"></select></div>
+        <div><label for="pl_p">Pelanggaran</label><input id="pl_p" class="in" maxlength="200" autocomplete="off" placeholder="Tulis pelanggaran..."></div>
+        <div><label for="pl_b">Bobot pelanggaran</label><select id="pl_b" class="in"><option value="">- Pilih bobot -</option><option>Berat</option><option>Sedang</option><option>Ringan</option></select></div>
+      </div>
+      <label for="pl_k">Keterangan / Kronologi</label>
+      <textarea id="pl_k" class="in" rows="4" maxlength="2000" placeholder="Tulis kronologi kejadian..."></textarea>
+      <p class="mu" id="pl_h" style="margin-top:14px;font-size:13px;min-height:1.2em"></p>
+      <div class="acts"><button class="btn o hide" id="pl_cn" type="button">Batal edit</button><button class="btn" id="pl_sv" type="button" disabled>Simpan pelanggaran</button></div>
+    </div>
+    <div class="panel">
+      <div class="denah-h"><h3>Riwayat input pelanggaran</h3><small id="pl_hc"></small></div>
+      <table class="hs-t pl-t"><thead><tr><th>Tanggal</th><th>Santri</th><th>Pelanggaran</th><th>Bobot</th><th>Keterangan</th><th></th></tr></thead><tbody id="pl_hb"></tbody></table>
+      <p class="mu" style="margin-top:14px;font-size:13px;line-height:1.5">Edit memuat catatan ke form di atas, ubah datanya lalu klik Simpan perubahan. Hapus menghilangkan catatan dari sheet Pelanggaran. Catatan tampil di menu Data Pelanggaran pada formulir santri.</p>
+    </div>
+  </main>
+
+  <main id="flt" class="hide">
+    <div class="panel fl-sum" id="fl_sum" aria-live="polite"></div>
+    <div class="panel fl-p">
+      <div class="denah-h"><h3>Filter santri</h3><div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn o" id="fl_rl">Muat ulang data</button><button type="button" class="btn o" id="fl_rs">Reset filter</button></div></div>
+      <p class="mu" id="fl_kt" style="font-size:13px"></p>
+      <div class="fs first">Data diri</div>
+      <div class="fl-g">
+        <div><label for="fl_q">Cari nama / data</label><input id="fl_q" class="in" placeholder="Nama, kelas, alamat, bakat..." autocomplete="off"></div>
+        <div id="fl_kmw"><label for="fl_km">Kamar</label><select id="fl_km" class="in"></select></div>
+        <div><label for="fl_pg">Program</label><select id="fl_pg" class="in"></select></div>
+        <div><label for="fl_kl">Kelas</label><select id="fl_kl" class="in"></select></div>
+      </div>
+      <div class="fs">Hafalan</div>
+      <div class="fl-g">
+        <div><label for="fl_pr">Periode hafalan</label><select id="fl_pr" class="in"></select></div>
+        <div><label for="fl_hs">Status batas minimal</label><select id="fl_hs" class="in"><option value="">Semua status</option><option value="ok">Memenuhi batas</option><option value="bad">Belum memenuhi batas</option></select></div>
+        <div><label for="fl_hm">Total hafalan minimal</label><div class="uw"><input id="fl_hm" class="in" type="number" inputmode="decimal" min="0" step="any"><span class="su">Juz</span></div></div>
+      </div>
+      <div class="fs">Pelanggaran</div>
+      <div class="fl-g">
+        <div><label for="fl_pb">Bobot pelanggaran</label><select id="fl_pb" class="in"><option value="">Semua</option><option value="any">Ada pelanggaran (bobot apa pun)</option><option value="Berat">Berat</option><option value="Sedang">Sedang</option><option value="Ringan">Ringan</option><option value="none">Tidak ada pelanggaran</option></select></div>
+        <div><label for="fl_pa">Hitung pelanggaran dari tanggal</label><input id="fl_pa" type="date" class="in"></div>
+        <div><label for="fl_pz">Sampai tanggal</label><input id="fl_pz" type="date" class="in"></div>
+      </div>
+      <div class="fs">Urutan</div>
+      <div class="fl-g">
+        <div><label for="fl_sk">Urutkan berdasarkan</label><select id="fl_sk" class="in"></select></div>
+        <div><label for="fl_sd">Arah</label><select id="fl_sd" class="in"></select></div>
+      </div>
+      <button type="button" class="chk on" id="fl_hd" aria-pressed="true"><i>✓</i>Sembunyikan santri yang tidak punya data untuk urutan ini</button>
+      <p class="mu" id="fl_h" style="margin-top:12px;font-size:13px;min-height:1.2em"></p>
+    </div>
+    <div class="panel">
+      <div class="fl-w"><table class="fl-t"><thead id="fl_th">
+        <tr class="gh"><th colspan="2" class="sk">Santri</th><th colspan="10" class="gd">Data diri</th><th colspan="9" class="gz">Hafalan</th><th colspan="4" class="gp">Pelanggaran</th></tr>
+        <tr class="ch"><th class="sk c0">No</th><th class="sk c1" data-k="nama" tabindex="0">Nama</th><th>Panggilan</th><th>No. Induk</th><th data-k="kamar" tabindex="0">Kamar</th><th data-k="kelas" tabindex="0">Kelas</th><th data-k="program" tabindex="0">Program</th><th>Alamat</th><th>Bakat</th><th>Lomba</th><th>Organisasi</th><th>No. HP Wali/Ortu</th><th>Periode</th><th data-k="t" tabindex="0">Tambahan</th><th data-k="m" tabindex="0">Muroja'ah</th><th data-k="k" tabindex="0">Keaktifan</th><th data-k="h" tabindex="0">Hal. Terakhir</th><th data-k="d" tabindex="0">Hafalan Depan</th><th data-k="b" tabindex="0">Hafalan Belakang</th><th data-k="T" tabindex="0">Total Hafalan</th><th>Status</th><th class="n" data-k="pb" tabindex="0">Berat</th><th class="n" data-k="ps" tabindex="0">Sedang</th><th class="n" data-k="pr" tabindex="0">Ringan</th><th class="n" data-k="pt" tabindex="0">Total</th></tr>
+      </thead><tbody id="fl_b"></tbody></table></div>
+      <p class="mu" style="margin-top:14px;font-size:13px;line-height:1.5">Klik judul kolom untuk mengurutkan (klik lagi untuk membalik arah). Klik baris santri untuk membuka detail lengkapnya. Hafalan memakai periode yang dipilih; bila "Terbaru", dipakai periode terakhir tiap santri. Jumlah pelanggaran dihitung dari catatan di menu Input Pelanggaran (sesuai rentang tanggal bila diisi).</p>
+    </div>
+  </main>
+
+  <main id="tpl" class="hide">
+    <div class="panel"><h3>Gambar latar halaman login</h3>
+      <p class="mu" style="margin-top:6px">Gambar tampil di belakang halaman login, form tetap di tengah. Otomatis dikecilkan agar cepat dimuat.</p>
+      <div class="bgprev" id="bgprev"><span>Pratinjau</span></div>
+      <div class="acts"><button class="btn" onclick="$('bf').click()">Pilih gambar</button><button class="btn d" onclick="delBg()">Hapus gambar</button></div>
+      <input id="bf" type="file" accept="image/*" hidden>
+    </div>
+  </main>
+</div>
+
+<div id="md" class="modal hide"><div class="sheet" id="sh"></div></div>
+<div id="toast"></div>
+
+<script>
+let auth=null,me=null,S=[],AD=[],room='all',foto=null,pend=0,Q=Promise.resolve(),tt,cv='home';
+const PH={},LD={},$=i=>document.getElementById(i),rooms=[...Array(18)].map((_,i)=>String(i+1).padStart(2,'0'));
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>'&#'+c.charCodeAt(0)+';');
+const ini=n=>String(n).trim().split(/\s+/).slice(0,2).map(x=>x[0]).join('').toUpperCase();
+function toast(m,e){const t=$('toast');t.textContent=m;t.className='show'+(e?' err':'');clearTimeout(tt);tt=setTimeout(()=>t.className='',2800)}
+function api(act,d,au){return new Promise((ok,no)=>google.script.run.withSuccessHandler(r=>r&&r.ok?ok(r):no((r&&r.err)||'Terjadi kesalahan')).withFailureHandler(e=>no((e&&e.message)||'Gagal terhubung')).api(act,au||auth,d||{}))}
+// Tulis ke server di latar belakang, berurutan; layar sudah diperbarui lebih dulu
+function push(act,d){const au=auth;pend++;Q=Q.then(()=>api(act,d,au)).then(()=>{pend--;persist()},e=>{pend--;toast(e,1);refresh()})}
+// Sesi login TIDAK disimpan di perangkat (hanya di memori halaman), jadi setiap link dibuka harus login lagi
+function persist(){}
+function openM(h,f){$('sh').innerHTML=h;$('sh').className='sheet'+(f?' full':'');$('md').className='modal'+(f?' full':'')}
+function closeM(){if(me&&me.role=='user')return;$('md').classList.add('hide');$('sh').innerHTML=''}
+function ask(m,fn){openM(`<div class="dt"><h3>${m}</h3><div class="acts"><button class="btn o" onclick="closeM()">Batal</button><button class="btn d" id="yes">Ya, hapus</button></div></div>`);$('yes').onclick=()=>{closeM();fn()}}
+
+function apply(r){me=r.me;S=r.s;AD=r.a||[];if(r.f!==undefined)PH[me.id]=r.f;persist();start()}
+async function refresh(){
+  if(!auth)return;if(pend)return setTimeout(refresh,1500);
+  const a=auth;
+  try{const r=await api('boot');if(!pend&&auth===a)apply(r)}
+  catch(e){if(auth===a&&/password salah/i.test(e)){logout();toast(e,1)}}}
+async function login(){
+  const u=$('lu').value.trim(),p=$('lp').value;if(!u||!p)return toast('Isi username dan password',1);
+  auth={u,p};$('lb').disabled=true;$('lb').textContent='Memeriksa...';
+  try{apply(await api('boot'))}
+  catch(e){toast(e,1);auth=null}
+  $('lb').disabled=false;$('lb').textContent='Masuk'}
+function logout(){
+  try{localStorage.removeItem('ma');localStorage.removeItem('mad')}catch(e){}
+  auth=null;me=null;S=[];AD=[];room='all';foto=null;Object.keys(PH).forEach(k=>delete PH[k]);
+  closeM();$('res').classList.add('hide');$('q').value='';
+  $('dn').innerHTML='';$('grid').innerHTML='';$('at').innerHTML='';$('ab_b').innerHTML='';AB.st={};AB.n++;AB.mode='all';AB.p='';abUi();
+  $('hs_b').innerHTML='';$('hs_c').textContent='';HS.rows=[];HS.open=null;HS.q++;
+  $('rk_b').innerHTML='';$('rk_h').innerHTML='';RK.rows=[];RK.n++;
+  hfReset();ctReset();plReset();fltReset();
+  $('lu').value='';$('lp').value='';$('lp').type='password';$('eye').textContent='Lihat';
+  setV('home');$('app').classList.add('hide');$('login').classList.remove('hide');$('lu').focus()}
+
+function start(){
+  const sup=me.role=='super',adm=me.role=='admin';
+  $('login').classList.add('hide');$('app').classList.remove('hide');
+  $('un').textContent=me.nama;$('ur').textContent=me.jabatan;$('av').textContent=ini(me.nama);
+  $('tabs').classList.toggle('hide',!(sup||adm));
+  [...$('tabs').children].forEach(b=>b.classList.toggle('hide',!b.dataset.r.split(' ').includes(me.role)));
+  $('sw').classList.toggle('hide',!sup);$('addb').classList.toggle('hide',me.role=='user');
+  if(me.role=='user')$('home').classList.add('hide');else vis(cv);
+  draw();if(sup)absDraw();if(adm&&HF.ok)hfDraw();if(adm&&CT.ok)ctDraw();if(adm)plDraw();if((sup||adm)&&CF.ok)fltDraw();
+  if(me.role=='user')show(me.id)}
+function draw(){
+  const sup=me.role=='super',cnt={};S.forEach(x=>cnt[x.kamar]=(cnt[x.kamar]||0)+1);
+  $('dn').innerHTML=sup?`<div class="denah-h"><h2>Denah kamar</h2><small>${S.length} santri di ${Object.keys(cnt).length} kamar</small></div><div class="denah"><button data-r="all" class="${room=='all'?'on':''}"><b>${S.length}</b><span>Semua</span></button>${rooms.map(r=>`<button data-r="${r}" class="${cnt[r]?'fill':''} ${r==room?'on':''}"><b>${r}</b><span>${cnt[r]||0} santri</span></button>`).join('')}</div>`:'';
+  const k=sup?room:me.kamar,list=S.filter(x=>k=='all'||x.kamar==k);
+  $('ttl').textContent=k=='all'?'Semua santri':'Kamar MAQOMIN AMIN '+k;
+  $('grid').innerHTML=list.length?list.map(x=>`<button class="card" data-id="${esc(x.id)}"><div class="ava">${esc(ini(x.nama))}</div><div><b>${esc(x.nama)}</b><small>@${esc(x.panggilan)} · Kamar ${esc(x.kamar)}</small></div></button>`).join('')
+    :`<div class="empty">${me.role=='user'?'Belum ada data kamar.':'Belum ada santri di sini. Klik "Tambah Santri" untuk mulai.'}</div>`;
+  if(sup)$('at').innerHTML=AD.map((a,i)=>`<tr><td><b>${esc(a.username)}</b></td><td>${esc(a.password)}</td><td>${esc(a.jabatan)}</td><td><button class="btn d" style="padding:7px 12px" data-i="${i}">Hapus</button></td></tr>`).join('')||'<tr><td colspan="4" class="mu">Belum ada admin.</td></tr>'}
+// Tampilkan satu halaman saja (tanpa memuat ulang data)
+function vis(v){cv=v;['home','adm','abs','rkp','hfz','chat','plg','flt','tpl'].forEach(k=>$(k).classList.toggle('hide',k!=v));
+  [...$('tabs').children].forEach(b=>b.classList.toggle('on',b.dataset.v==v))}
+function setV(v){vis(v);
+  if(v=='tpl')$('bgprev').style.backgroundImage=$('lbg').style.backgroundImage;
+  if(v=='abs'){absLoad();hsLoad()}
+  if(v=='rkp')rkLoad();
+  if(v=='hfz'){if(!HF.ok)hfLoad();hhLoad()}
+  if(v=='chat')ctLoad();
+  if(v=='plg')plLoad();
+  if(v=='flt')fltLoad()}
+
+// Pencarian (lokal, tanpa server)
+$('q').oninput=()=>{const v=$('q').value.toLowerCase().trim(),b=$('res');
+  if(!v){b.classList.add('hide');return}
+  const m=S.filter(x=>(x.nama+' '+x.panggilan).toLowerCase().includes(v)).slice(0,8);
+  b.innerHTML=m.length?m.map(x=>`<div data-id="${esc(x.id)}"><div class="ava s">${esc(ini(x.nama))}</div><div><b>${esc(x.nama)}</b><small>Kamar ${esc(x.kamar)}</small></div></div>`).join(''):'<p class="mu" style="padding:14px">Santri tidak ditemukan.</p>';
+  b.classList.remove('hide')};
+$('res').onclick=e=>{const d=e.target.closest('[data-id]');if(d){$('res').classList.add('hide');show(d.dataset.id)}};
+document.addEventListener('click',e=>{if(!e.target.closest('.sw'))$('res').classList.add('hide')});
+$('grid').onclick=e=>{const c=e.target.closest('.card');if(c)show(c.dataset.id)};
+$('dn').onclick=e=>{const b=e.target.closest('button');if(b){room=b.dataset.r;draw()}};
+$('at').onclick=e=>{const b=e.target.closest('button');if(b)delAdm(+b.dataset.i)};
+$('tabs').onclick=e=>{const b=e.target.closest('button');if(b)setV(b.dataset.v)};
+// Klik di dalam jendela: pindah menu formulir (data-t) atau tombol Edit / Hapus di detail santri (data-a)
+$('sh').onclick=e=>{const t=e.target.closest('[data-t]');if(t)return mTab(t.dataset.t);
+  const b=e.target.closest('[data-a]');if(b)b.dataset.a=='edit'?formSantri(b.dataset.id):del(b.dataset.id)};
+// Kotak No. HP Wali/Ortu: hanya angka, 0 / 62 di depan otomatis dibuang (awalan +62 sudah tampil di kotak)
+$('sh').oninput=e=>{const i=e.target;if(i.id=='f_hp'){const c=hpClean(i.value);if(c!==i.value)i.value=c}};
+
+// Foto dimuat sekali, lalu disimpan di memori
+function phHtml(x,f){return f?`<img src="${f}" alt="">`:`<div class="ava big">${esc(ini(x.nama))}</div>`}
+function loadFoto(id){
+  if(PH[id]!==undefined||LD[id])return;LD[id]=1;
+  api('foto',{id}).then(r=>{PH[id]=r.f||''}).catch(()=>{}).then(()=>{delete LD[id];paintFoto(id)})}
+function paintFoto(id){
+  const x=S.find(v=>v.id==id),f=PH[id];if(!x||!f)return;
+  const p=$('ph');if(p&&p.dataset.id==id)p.innerHTML=phHtml(x,f);
+  const v=$('pv');if(v&&v.dataset.id==id&&!foto)v.innerHTML=`<img src="${f}" alt="">`}
+
+// Detail santri (santri biasa hanya bisa membuka datanya sendiri): 3 menu sama seperti formulir, teks langsung tampil, foto menyusul
+// Santri biasa: tombol Keluar ada di pojok kanan atas (class "lo"); admin / super admin: tombol tutup ✕ + Edit / Hapus
+function show(id){
+  const x=S.find(v=>v.id==id);if(!x)return;
+  openM(`${me.role!='user'?`<button class="x" onclick="closeM()" aria-label="Tutup">✕</button>`:`<button type="button" class="lo" onclick="logout()">Keluar</button>`}
+    <div class="ph" id="ph" data-id="${esc(id)}">${phHtml(x,PH[id])}</div>
+    <div class="dt"><h2>${esc(x.nama)}</h2><span class="pill">@${esc(x.panggilan)} · Kamar ${esc(x.kamar)}</span>
+    ${tabBar()}
+    <div id="pn_d"><div class="rows">${[['No. induk',x.induk],['Alamat',x.alamat],['Kelas',x.kelas],['Program',x.program],['Bakat',x.bakat],['Lomba',x.lomba],['Organisasi',x.organisasi],['No. HP Wali/Ortu',hpFmt(x.hp)]].map(a=>`<div><small>${a[0]}</small><p>${esc(a[1])||'-'}</p></div>`).join('')}</div></div>
+    <div id="pn_h" class="hide" data-id="${esc(id)}"><div id="hv_b"></div></div>
+    <div id="pn_p" class="hide" data-id="${esc(id)}"><div id="pg_b"></div></div>
+    ${me.role!='user'?`<div class="acts"><button class="btn o" data-a="edit" data-id="${esc(id)}">Edit</button><button class="btn d" data-a="del" data-id="${esc(id)}">Hapus</button></div>`:''}</div>`,1);
+  loadFoto(id)}
+
+// ===== Formulir santri: 3 menu (Data Diri / Data Hafalan / Data Pelanggaran) =====
+// No. HP Wali/Ortu: kotak isian hanya angka setelah +62; disimpan ke sheet sebagai +62xxxxxxxxxx
+const hpClean=v=>{let s=String(v||'').replace(/\D/g,'');if(s.startsWith('62'))s=s.slice(2);if(s.startsWith('0'))s=s.slice(1);return s.slice(0,13)};
+const hpFmt=h=>{const d=hpClean(h);return d?'+62 '+d.replace(/^(\d{3})(\d{4})(\d+)$/,'$1-$2-$3'):''};   // tampilan: +62 812-3456-7890
+// Pilihan dropdown Program di Data Diri (harus sama dengan PROG di Code.gs)
+const PROG=['BND','THF','PASCA'];
+const tabBar=()=>`<div class="seg mt" role="tablist" aria-label="Menu formulir santri"><button type="button" role="tab" aria-selected="true" class="on" data-t="d">Data Diri</button><button type="button" role="tab" aria-selected="false" data-t="h">Data Hafalan</button><button type="button" role="tab" aria-selected="false" data-t="p">Data Pelanggaran</button></div>`;
+function mTab(p){
+  document.querySelectorAll('#sh .seg.mt button').forEach(b=>{const on=b.dataset.t==p;b.classList.toggle('on',on);b.setAttribute('aria-selected',on)});
+  $('pn_d').classList.toggle('hide',p!='d');$('pn_h').classList.toggle('hide',p!='h');$('pn_p').classList.toggle('hide',p!='p');
+  if(p=='h')hfView($('pn_h').dataset.id);
+  if(p=='p')plView($('pn_p').dataset.id)}
+// Menu Data Hafalan: ambil hafalan santri ini dari server (hasil Input Hafalan oleh admin / pembina)
+function hfView(id){
+  const el=$('hv_b');if(!el)return;
+  if(!id){el.innerHTML='<div class="empty">Data hafalan tampil setelah santri disimpan dan hafalannya diinput admin / pembina di menu Input Hafalan.</div>';return}
+  if(el.dataset.ok)return;
+  el.innerHTML='<p class="mu" style="margin-top:16px">Memuat data hafalan...</p>';
+  api('hfzSan',{id}).then(r=>{const e=$('hv_b'),p=$('pn_h');if(e&&p&&p.dataset.id==id){e.dataset.ok='1';e.innerHTML=hvHtml(r.h||[])}})
+   .catch(err=>{const e=$('hv_b'),p=$('pn_h');if(e&&p&&p.dataset.id==id)e.innerHTML=`<div class="empty">${esc(err)}</div>`})}
+// Status satu bulan: bandingkan Keaktifan dengan batas keaktifan dan Muroja'ah dengan batas muroja'ah (angka kosong dihitung 0).
+// Muroja'ah dan batasnya boleh pecahan (1 ½, ⅓, dst): dibaca lewat frP() menjadi angka sebelum dibandingkan.
+// ok = semua batas terpenuhi (hijau) | bad = ada yang di bawah batas (merah) | na = batas bulan itu belum diisi (abu-abu)
+// r = [mulai, sampai, tambahan, murojaah, keaktifan, halaman, depan, belakang, total, batas keaktifan, batas murojaah]
+function hvSt(r){
+  const n=v=>v===''||v==null||isNaN(+v)?null:+v,
+    q=v=>{const p=frP(v);return p?p.n:null},
+    bk=n(r[9]),bm=q(r[10]),k=n(r[4])||0,m=q(r[3])||0,
+    ck=bk===null?null:k>=bk,cm=bm===null?null:m>=bm,c=[ck,cm].filter(v=>v!==null);
+  return{ck,cm,s:c.length?(c.every(Boolean)?'ok':'bad'):'na'}}
+const hvC=v=>v===null?'':v?' ok':' bad';
+// Satu kartu per bulan; urutan sudah dari bulan paling awal (Januari di atas, Oktober di bawah) karena diurutkan server menurut tanggal mulai
+function hvHtml(H){
+  if(!H.length)return '<div class="empty">Belum ada data hafalan untuk santri ini. Data muncul setelah admin / pembina mengisinya di menu Input Hafalan.</div>';
+  const st=H.map(hvSt),ok=st.filter(x=>x.s=='ok').length,bad=st.filter(x=>x.s=='bad').length,
+    bln=a=>new Date(a+'T00:00:00').toLocaleDateString('id-ID',{month:'long',year:'numeric'}),
+    lab={ok:'Memenuhi batas',bad:'Belum memenuhi batas',na:'Batas belum diisi'},
+    lim=(f,v)=>v===''||v==null?'':`<em>Batas ${esc(hfF(f,v))}</em>`;
+  return `<div class="hv-s"><span class="pill">${H.length} bulan</span><span class="ok">${ok} memenuhi batas</span><span class="bad">${bad} belum memenuhi</span></div>`
+   +H.map((r,i)=>{const s=st[i];
+    return `<div class="hv ${s.s}"><div class="hv-h"><div><b>${esc(bln(r[0]))}</b><small>${esc(fd(r[0]))} – ${esc(fd(r[1]))}</small></div><span class="hv-b">${lab[s.s]}</span></div><div class="hv-g">`
+     +`<div class="hv-c"><small>Tambahan</small><b>${esc(hfF('t',r[2]))}</b></div>`
+     +`<div class="hv-c${hvC(s.cm)}"><small>Muroja'ah</small><b>${esc(hfF('m',r[3]))}</b>${lim('m',r[10])}</div>`
+     +`<div class="hv-c${hvC(s.ck)}"><small>Keaktifan</small><b>${esc(hfF('k',r[4]))}</b>${lim('k',r[9])}</div>`
+     +`<div class="hv-c"><small>Hal. Terakhir</small><b>${esc(hfF('h',r[5]))}</b></div>`
+     +`<div class="hv-c"><small>Hafalan Depan</small><b>${esc(hfF('d',r[6]))}</b></div>`
+     +`<div class="hv-c"><small>Hafalan Belakang</small><b>${esc(hfF('b',r[7]))}</b></div>`
+     +`<div class="hv-c"><small>Total Hafalan</small><b>${esc(hfF('T',r[8]))}</b></div></div></div>`}).join('')
+   +`<p class="mu hv-n">Merah: Keaktifan atau Muroja'ah di bawah batas minimal bulan itu. Hijau: semua batas minimal terpenuhi. Abu-abu: batas minimal bulan itu belum diisi. Data diisi lewat menu Input Hafalan.</p>`}
+
+// Menu Data Pelanggaran: ambil catatan pelanggaran santri ini dari server (hasil Input Pelanggaran oleh pembina).
+// Super admin / pembina / santri sendiri hanya MELIHAT di sini; input, edit, dan hapus ada di menu Input Pelanggaran (pembina).
+function plView(id){
+  const el=$('pg_b');if(!el)return;
+  if(!id){el.innerHTML='<div class="empty">Data pelanggaran tampil setelah santri disimpan dan pelanggarannya diinput pembina di menu Input Pelanggaran.</div>';return}
+  if(el.dataset.ok)return;
+  el.innerHTML='<p class="mu" style="margin-top:16px">Memuat data pelanggaran...</p>';
+  api('plgSan',{id}).then(r=>{const e=$('pg_b'),p=$('pn_p');if(e&&p&&p.dataset.id==id){e.dataset.ok='1';e.innerHTML=pgHtml(r.h||[])}})
+   .catch(err=>{const e=$('pg_b'),p=$('pn_p');if(e&&p&&p.dataset.id==id)e.innerHTML=`<div class="empty">${esc(err)}</div>`})}
+// Satu kartu per catatan, tanggal terbaru di atas (urutan dari server). Warna mengikuti bobot: Berat merah, Sedang kuning, Ringan biru.
+// r = [tanggal, pelanggaran, bobot, keterangan]
+function pgHtml(H){
+  if(!H.length)return '<div class="empty">Belum ada catatan pelanggaran untuk santri ini.</div>';
+  const c={Berat:0,Sedang:0,Ringan:0};H.forEach(r=>{if(c[r[2]]!==undefined)c[r[2]]++});
+  return `<div class="hv-s"><span class="pill">${H.length} pelanggaran</span>${PL_B.map(b=>`<span class="bw ${BW[b]}">${b} ${c[b]}</span>`).join('')}</div>`
+   +H.map(r=>`<div class="pg ${BW[r[2]]||''}"><div class="hv-h"><div><b>${esc(r[1])}</b><small>${esc(fd(r[0]))}</small></div><span class="bw ${BW[r[2]]||''}">${esc(r[2])}</span></div>${r[3]?`<div class="pg-k"><small>Keterangan / Kronologi</small><p>${esc(r[3])}</p></div>`:''}</div>`).join('')}
+
+// Form tambah / edit (terbuka seketika, tanpa menunggu server)
+function formSantri(id){
+  const old=id?S.find(v=>v.id==id):null,x=old||{kamar:me.role=='admin'?me.kamar:(room!='all'?room:'01')};
+  foto=null;
+  const T=(k,l)=>`<label>${l}</label><textarea id="f_${k}" class="in" rows="2">${esc(x[k])}</textarea>`,
+        I=(k,l)=>`<label>${l}</label><input id="f_${k}" class="in" value="${esc(x[k])}">`;
+  openM(`<button class="x" onclick="closeM()" aria-label="Tutup">✕</button><div class="ph fp"><div id="pv" class="ava big" data-id="${esc(id||'')}">${old&&PH[id]?`<img src="${PH[id]}" alt="">`:'Foto'}</div><div class="pk"><button type="button" class="btn" onclick="$('ff').click()">Pilih foto</button><small>Otomatis dikecilkan</small><input id="ff" type="file" accept="image/*" hidden onchange="pick(this)"></div></div><div class="dt">
+    <h2>${old?'Edit':'Tambah'} santri</h2>
+    ${tabBar()}
+    <div id="pn_d">
+      <div class="fs first">Identitas</div>
+      ${I('nama','Nama panjang *')}
+      <div class="g2"><div>${I('panggilan','Nama panggilan (username) *')}</div><div>${I('induk','No. induk (password) *')}</div></div>
+      <label>Kamar</label><select id="f_kamar" class="in" ${me.role=='admin'?'disabled':''}>${rooms.map(r=>`<option ${r==x.kamar?'selected':''}>${r}</option>`).join('')}</select>
+      <div class="fs">Profil</div>
+      ${T('alamat','Alamat')}
+      <label>Kelas</label><input id="f_kelas" class="in" maxlength="60" autocomplete="off" placeholder="Contoh: MA 10" value="${esc(x.kelas)}">
+      <label>Program</label><select id="f_program" class="in"><option value="">- Pilih program -</option>${PROG.map(p=>`<option${p==String(x.program||'').toUpperCase()?' selected':''}>${p}</option>`).join('')}</select>
+      ${T('bakat','Bakat')}${T('lomba','Lomba')}${T('organisasi','Organisasi')}
+      <div class="fs">Kontak wali / orang tua</div>
+      <label for="f_hp">No. HP Wali/Ortu</label>
+      <div class="uw hp"><input id="f_hp" class="in" type="tel" inputmode="numeric" maxlength="13" autocomplete="off" placeholder="81234567890" value="${esc(hpClean(x.hp))}"><span class="su">+62</span></div>
+      <small style="margin-top:6px">Ketik tanpa angka 0 di depan. Contoh: 81234567890</small>
+      <div class="acts"><button class="btn o" onclick="closeM()">Batal</button><button class="btn" data-id="${esc(id||'')}" onclick="save(this.dataset.id)">Simpan santri</button></div>
+    </div>
+    <div id="pn_h" class="hide" data-id="${esc(id||'')}"><div id="hv_b"></div><div class="acts"><button class="btn o" onclick="closeM()">Tutup</button></div></div>
+    <div id="pn_p" class="hide" data-id="${esc(id||'')}"><div id="pg_b"></div><div class="acts"><button class="btn o" onclick="closeM()">Tutup</button></div></div>
+    </div>`,1);
+  if(old)loadFoto(id)}
+
+// Perkecil gambar di browser (crop untuk foto santri, muat-dalam-kotak untuk latar)
+function shrink(f,o,cb){
+  const im=new Image(),u=URL.createObjectURL(f);
+  im.onerror=()=>{URL.revokeObjectURL(u);cb(null)};
+  im.onload=()=>{URL.revokeObjectURL(u);let q=o.q,k=1,out='';
+    for(let t=0;t<6;t++){
+      const c=document.createElement('canvas'),g=c.getContext('2d');
+      if(o.crop){c.width=Math.round(o.w*k);c.height=Math.round(o.h*k);
+        const s=Math.max(c.width/im.width,c.height/im.height),w=im.width*s,h=im.height*s;g.drawImage(im,(c.width-w)/2,(c.height-h)/2,w,h)}
+      else{const s=Math.min(1,o.max/Math.max(im.width,im.height))*k;c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);g.drawImage(im,0,0,c.width,c.height)}
+      out=c.toDataURL('image/jpeg',q);if(out.length<=o.lim)return cb(out);
+      q=Math.max(.35,q-.1);k*=.85}
+    cb(null)};
+  im.src=u}
+function pick(i){const f=i.files[0];i.value='';if(!f)return;
+  shrink(f,{crop:1,w:240,h:300,q:.72,lim:45000},d=>{if(!d)return toast('Foto tidak bisa diproses',1);foto=d;$('pv').innerHTML=`<img src="${d}" alt="">`})}
+
+function save(id){
+  const d={};['nama','panggilan','induk','kamar','alamat','bakat','lomba','organisasi','kelas','program'].forEach(k=>d[k]=$('f_'+k).value.trim());
+  if(!d.nama||!d.panggilan||!d.induk)return toast('Nama panjang, nama panggilan & no. induk wajib diisi',1);
+  if(me.role=='admin')d.kamar=me.kamar;
+  d.kelas=d.kelas.replace(/\s+/g,' ');
+  if(d.program&&!PROG.includes(d.program))return toast('Program tidak valid. Pilih BND, THF, atau PASCA',1);
+  const hp=hpClean($('f_hp').value);
+  if(hp&&!/^8\d{7,12}$/.test(hp))return toast('No. HP Wali/Ortu tidak valid. Contoh: +62 812 3456 7890',1);
+  d.hp=hp?'+62'+hp:'';
+  if(S.some(x=>x.id!=id&&x.panggilan.toLowerCase()==d.panggilan.toLowerCase()))return toast('Nama panggilan sudah dipakai santri lain',1);
+  const nid=id||('s'+Date.now().toString(36)+Math.random().toString(36).slice(2,8)),rec=Object.assign({id:nid},d),i=S.findIndex(x=>x.id==nid);
+  i<0?S.push(rec):S[i]=rec;if(foto)PH[nid]=foto;
+  push('save',Object.assign({},d,{id:id||'',nid,foto:foto||''}));
+  closeM();draw();persist();toast('Santri tersimpan')}
+function del(id){ask('Hapus data santri ini?',()=>{S=S.filter(x=>x.id!=id);delete PH[id];draw();persist();toast('Santri dihapus');push('del',{id})})}
+
+// Kelola admin (super admin)
+function jb(){$('a_j').textContent='PEMBINA KAMAR MAQOMIN AMIN '+$('a_k').value}
+function addAdm(){
+  const d={username:$('a_u').value.trim(),password:$('a_p').value.trim(),nama:$('a_n').value.trim(),kamar:$('a_k').value};
+  if(!d.username||!d.password)return toast('Username dan password wajib diisi',1);
+  if(AD.some(x=>x.username.toLowerCase()==d.username.toLowerCase()))return toast('Username sudah dipakai',1);
+  AD.push(Object.assign({jabatan:'PEMBINA KAMAR MAQOMIN AMIN '+d.kamar},d));
+  ['a_u','a_p','a_n'].forEach(i=>$(i).value='');draw();persist();toast('Admin ditambahkan');push('adminSave',d)}
+function delAdm(i){const a=AD[i];if(!a)return;ask('Hapus admin '+esc(a.username)+'?',()=>{AD=AD.filter(x=>x.username!=a.username);draw();persist();toast('Admin dihapus');push('adminDel',{username:a.username})})}
+
+// Gambar latar login (super admin)
+function setBgCss(v){$('lbg').style.backgroundImage=v;$('bgprev').style.backgroundImage=v}
+function sendBg(img,css){
+  const prev=$('lbg').style.backgroundImage;setBgCss(css);pend++;
+  api('setBg',{img}).then(()=>{pend--;toast(img?'Gambar login tersimpan':'Gambar login dihapus')},e=>{pend--;setBgCss(prev);toast(e,1)})}
+$('bf').onchange=function(){const f=this.files[0];this.value='';if(!f)return;toast('Memproses gambar...');
+  shrink(f,{max:1400,q:.62,lim:330000},img=>{if(!img)return toast('Gambar tidak bisa diproses atau terlalu besar',1);sendBg(img,'url("'+img+'")')})};
+function delBg(){ask('Hapus gambar latar login?',()=>sendBg('',''))}
+
+// ===== Absensi pembina (super admin) =====
+const AB_K={"Keaktifan Pembina di Kamar":["Ngubrak-i Subuh","Tahajjud + Ngaji Kamar","Pagi di Kamar - Berangkat","Ngaji Sore","Ngubrakin Jamaah Maghrib","Pengondisian Jam Malam"],
+  "Keaktifan Pembina di Komplek":["Kompetensi Departemen","Piket Salim","Piket Madin dan Jam Malam"],
+  "Jama'ah":["Subuh","Dhuhur","Ashar","Maghrib","Isya'"],
+  "Walisantri":null},
+  AB_S=['Aman','Izin','Tidak Hadir'],AB_W=['Aman','Setengah Rolas','Bahaya'],
+  AB_SHL='Set. Hadir',AB_SH=['Tahajjud + Ngaji Kamar','Pagi di Kamar - Berangkat'],   // "Set. Hadir" hanya untuk 2 item ini (kategori Keaktifan Pembina di Kamar)
+  stc=s=>s=='Aman'?'s0':(s=='Izin'||s=='Setengah Rolas'||s==AB_SHL)?'s1':'s2',   // warna status: hijau / kuning / merah
+  AB={st:{},n:0,mode:'all',p:''},   // mode: 'all' = semua pembina, 'one' = per orang (p = username terpilih)
+  HS={rows:[],open:null,q:0,tot:0};
+// Daftar status di dropdown mengikuti kategori + item yang sedang dipilih
+const abSt=()=>{const k=$('ab_k').value;
+  return k=='Walisantri'?AB_W:(k=='Keaktifan Pembina di Kamar'&&AB_SH.includes($('ab_i').value))?AB_S.concat(AB_SHL):AB_S};
+function abKey(){const k=$('ab_k').value;return{t:$('ab_t').value,k,i:(k=='Walisantri'?$('ab_x').value:$('ab_i').value).trim().replace(/\s+/g,' ')}}
+// Dropdown pilihan mengikuti kategori; Walisantri memakai kolom teks
+function abFill(){
+  const k=$('ab_k').value,l=AB_K[k],w=!l;
+  $('ab_i').classList.toggle('hide',w);$('ab_x').classList.toggle('hide',!w);
+  $('ab_il').textContent=w?'Keterangan walisantri':'Pilihan';$('ab_il').htmlFor=w?'ab_x':'ab_i';
+  if(l)$('ab_i').innerHTML=l.map(x=>`<option>${esc(x)}</option>`).join('')}
+function abKat(){abFill();absLoad()}
+// Daftar pembina dari Kelola Admin, urut nomor kamar lalu nama
+const abPem=()=>AD.slice().sort((a,b)=>a.kamar.localeCompare(b.kamar,'id',{numeric:true})||(a.nama||a.username).localeCompare(b.nama||b.username));
+// Dropdown "Absen per orang" (urut kamar)
+function abPDraw(){
+  $('ab_p').innerHTML='<option value="">- Pilih pembina -</option>'+abPem().map(p=>`<option value="${esc(p.username)}"${p.username==AB.p?' selected':''}>Kamar ${esc(p.kamar)} · ${esc(p.nama||p.username)}</option>`).join('')}
+// Samakan tampilan tombol mode dan dropdown dengan AB.mode
+function abUi(){
+  [...$('ab_m').children].forEach(b=>b.classList.toggle('on',b.dataset.m==AB.mode));
+  $('ab_pw').classList.toggle('hide',AB.mode!='one')}
+function abMode(){abUi();absLoad()}
+// Tabel nama: semua pembina (default Aman) atau hanya satu pembina terpilih
+function absDraw(){
+  const st=abSt(),one=AB.mode=='one',P=abPem().filter(p=>!one||p.username==AB.p);
+  abPDraw();
+  $('ab_b').innerHTML=P.length?P.map(p=>{const v=AB.st[p.username]||'Aman',c=st.includes(v)?stc(v):'s0';
+    return `<tr><td>${esc(p.kamar)}</td><td><b>${esc(p.nama||p.username)}</b></td><td><select class="in ab-s ${c}" data-u="${esc(p.username)}">${st.map(o=>`<option value="${esc(o)}"${o==v?' selected':''}>${esc(o)}</option>`).join('')}</select></td></tr>`}).join('')
+    :`<tr><td colspan="3" class="mu">${AD.length?'Pilih satu pembina di atas.':'Belum ada pembina. Tambahkan dulu di menu Kelola Admin.'}</td></tr>`;
+  $('ab_s').disabled=!P.length}
+// Ambil absensi yang sudah tersimpan untuk tanggal + kategori + pilihan ini
+function absLoad(){
+  AB.st={};const k=abKey(),n=++AB.n;absDraw();
+  if(!k.t||!k.i){$('ab_h').textContent=k.t?'Isi keterangan walisantri dulu.':'';return}
+  $('ab_h').textContent='Memuat data tersimpan...';$('ab_s').disabled=true;
+  api('absGet',k).then(r=>{if(n!=AB.n)return;AB.st=r.st||{};absDraw();
+    $('ab_h').textContent=Object.keys(AB.st).length?'Menampilkan absensi yang sudah tersimpan.':'Belum ada data tersimpan: semua otomatis Aman.'})
+   .catch(e=>{if(n==AB.n){$('ab_h').textContent='';absDraw();toast(e,1)}})}
+function absSave(){
+  const k=abKey(),one=AB.mode=='one';
+  if(!k.t)return toast('Pilih tanggal dulu',1);
+  if(!k.i)return toast('Isi keterangan walisantri dulu',1);
+  if(one&&!AB.p)return toast('Pilih pembina dulu',1);
+  const l=AD.filter(p=>!one||p.username==AB.p).map(p=>({u:p.username,s:AB.st[p.username]||'Aman'})),b=$('ab_s');
+  b.disabled=true;b.textContent='Menyimpan...';
+  api('absSave',Object.assign({l,only:one?AB.p:''},k)).then(()=>{toast('Absensi tersimpan');hsLoad()},e=>toast(e,1))
+   .then(()=>{b.textContent='Simpan absensi';b.disabled=one?!AB.p:!AD.length})}
+$('ab_k').innerHTML=Object.keys(AB_K).map(k=>`<option>${esc(k)}</option>`).join('');
+$('ab_t').value=new Date(Date.now()-new Date().getTimezoneOffset()*6e4).toISOString().slice(0,10);
+abFill();
+$('ab_t').onchange=absLoad;$('ab_k').onchange=abKat;$('ab_i').onchange=absLoad;$('ab_x').onchange=absLoad;$('ab_s').onclick=absSave;
+$('ab_b').onchange=e=>{const s=e.target.closest('select[data-u]');if(!s)return;AB.st[s.dataset.u]=s.value;s.className='in ab-s '+stc(s.value)};
+$('ab_m').onclick=e=>{const b=e.target.closest('button[data-m]');if(!b||b.dataset.m==AB.mode)return;AB.mode=b.dataset.m;if(AB.mode=='all')AB.p='';abMode()};
+$('ab_p').onchange=()=>{AB.p=$('ab_p').value;absDraw()};
+
+// ----- Riwayat input absensi: edit (muat ke form) dan hapus -----
+function hsSum(g){
+  if(g.l.length==1){const x=g.l[0];return `<b>${esc(x[1])}</b> (Kamar ${esc(x[2])}): ${esc(x[3])}`}
+  const c={};g.l.forEach(x=>c[x[3]]=(c[x[3]]||0)+1);
+  return g.l.length+' pembina: '+Object.keys(c).map(s=>esc(s)+' '+c[s]).join(', ')}
+function hsDraw(){
+  const H=HS.rows;
+  $('hs_c').textContent=H.length?(HS.tot>H.length?H.length+' dari '+HS.tot+' input terbaru':H.length+' input'):'';
+  $('hs_b').innerHTML=H.length?H.map((g,i)=>{
+    const op=HS.open===i;
+    return `<tr><td>${fd(g.t)}</td><td>${esc(g.k)}</td><td>${esc(g.i)}</td><td>${hsSum(g)}</td><td class="hs-a"><button class="btn o" data-h="det" data-i="${i}">${op?'Tutup':'Rincian'}</button><button class="btn o" data-h="edit" data-i="${i}">Edit</button><button class="btn d" data-h="del" data-i="${i}">Hapus</button></td></tr>`
+    +(op?`<tr class="hs-d"><td colspan="5"><div class="hs-l">${g.l.map((x,j)=>`<div><span>Kamar ${esc(x[2])}</span><b>${esc(x[1])}</b><em class="${stc(x[3])}">${esc(x[3])}</em>${AD.some(p=>p.username==x[0])?`<button class="btn o" data-h="pe" data-i="${i}" data-j="${j}">Edit</button>`:''}<button class="btn d" data-h="pd" data-i="${i}" data-j="${j}">Hapus</button></div>`).join('')}</div></td></tr>`:'')}).join('')
+    :'<tr><td colspan="5" class="mu">Belum ada riwayat input.</td></tr>'}
+function hsLoad(){
+  const n=++HS.q;
+  api('absHist').then(r=>{if(n!=HS.q)return;
+    HS.rows=(r.h||[]).map(g=>(g.l.sort((a,b)=>a[2].localeCompare(b[2],'id',{numeric:true})||a[1].localeCompare(b[1])),g));
+    HS.tot=r.n||HS.rows.length;HS.open=null;hsDraw()},
+   e=>{if(n==HS.q)toast(e,1)})}
+// Muat satu input ke form di atas; u = username -> mode per orang, kosong -> semua pembina
+function hsEdit(g,u){
+  $('ab_t').value=g.t;$('ab_k').value=g.k;abFill();
+  if(g.k=='Walisantri')$('ab_x').value=g.i;else $('ab_i').value=g.i;
+  const ok=u&&AD.some(p=>p.username==u);
+  AB.mode=ok?'one':'all';AB.p=ok?u:'';
+  abMode();window.scrollTo({top:0,behavior:'smooth'});
+  toast('Ubah status lalu klik Simpan absensi')}
+function hsDel(g,u,nm){
+  ask(u?`Hapus absensi ${esc(nm)} pada "${esc(g.i)}" tanggal ${fd(g.t)}?`
+        :`Hapus seluruh input "${esc(g.i)}" (${esc(g.k)}) tanggal ${fd(g.t)}? Semua nama di input ini ikut terhapus.`,
+    ()=>api('absDel',{t:g.t,k:g.k,i:g.i,u}).then(()=>{toast('Riwayat dihapus');hsLoad();absLoad()},e=>toast(e,1)))}
+$('hs_b').onclick=e=>{
+  const b=e.target.closest('button[data-h]');if(!b)return;
+  const i=+b.dataset.i,g=HS.rows[i],a=b.dataset.h,x=g&&g.l[+b.dataset.j];if(!g)return;
+  if(a=='det'){HS.open=HS.open===i?null:i;return hsDraw()}
+  if(a=='edit')return hsEdit(g,g.l.length==1?g.l[0][0]:'');
+  if(a=='pe'&&x)return hsEdit(g,x[0]);
+  if(a=='del')return hsDel(g,'','');
+  if(a=='pd'&&x)return hsDel(g,x[0],x[1])};
+
+// ===== Rekap absensi (super admin) =====
+// Nilai dihitung di server; di sini hanya filter tanggal, urutan, dan tampilan (semua angka diberi %)
+const RK={rows:[],n:0,top:false};
+const nf=x=>Number(x).toLocaleString('id-ID',{maximumFractionDigits:2}),
+  pc=x=>nf(x)+'%',
+  fd=t=>new Date(t+'T00:00:00').toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'}),
+  rkMsg=m=>{$('rk_b').innerHTML=`<tr><td colspan="8" class="mu">${m}</td></tr>`};
+// Nilai tertinggi aktif: urut total terbesar (nilai sama = peringkat sama). Nonaktif: urut kamar
+function rkDraw(){
+  const byK=(a,b)=>a.kamar.localeCompare(b.kamar,'id',{numeric:true})||a.nama.localeCompare(b.nama),
+    P=RK.rows.slice().sort(RK.top?(a,b)=>b.total-a.total||byK(a,b):byK);
+  if(!P.length)return rkMsg('Belum ada pembina. Tambahkan dulu di menu Kelola Admin.');
+  $('rk_b').innerHTML=P.map((p,i)=>{
+    const r=RK.top?P.findIndex(x=>x.total==p.total)+1:i+1;
+    return `<tr><td class="r${RK.top&&r<4?' gold':''}">${r}</td><td><b>${esc(p.nama)}</b></td><td>${esc(p.kamar)}</td>${p.s.map(v=>`<td class="n">${pc(v)}</td>`).join('')}<td class="n tot">${pc(p.total)}</td></tr>`}).join('')}
+function rkLoad(){
+  const a=$('rk_a').value,z=$('rk_z').value,n=++RK.n;
+  $('rk_h').textContent='';
+  if(!a||!z)return rkMsg('Pilih tanggal awal dan tanggal akhir.');
+  if(a>z)return rkMsg('Tanggal awal tidak boleh setelah tanggal akhir.');
+  rkMsg('Menghitung nilai...');
+  api('rekap',{a,b:z}).then(r=>{if(n!=RK.n)return;RK.rows=r.p;
+    $('rk_h').innerHTML=`<span class="pill">${r.hari} hari</span><span class="mu">${fd(a)} sampai ${fd(z)}. ${r.ada?'Ada data absensi di '+r.ada+' hari.':'Belum ada data absensi, semua nilai penuh.'}</span>`;
+    rkDraw()})
+   .catch(e=>{if(n==RK.n){rkMsg(esc(e));toast(e,1)}})}
+{const t=new Date(Date.now()-new Date().getTimezoneOffset()*6e4).toISOString().slice(0,10);$('rk_z').value=t;$('rk_a').value=t.slice(0,8)+'01'}
+$('rk_a').onchange=rkLoad;$('rk_z').onchange=rkLoad;
+$('rk_top').onclick=()=>{RK.top=!RK.top;const b=$('rk_top');b.classList.toggle('on',RK.top);b.setAttribute('aria-pressed',RK.top);
+  $('rk_u').textContent=RK.top?'Diurutkan dari nilai tertinggi ke terendah.':'Diurutkan berdasarkan kamar.';rkDraw()};
+
+// ===== Input hafalan (admin pembina) =====
+// Pengisian hanya ANGKA; satuan ditampilkan otomatis: Tambahan = Halaman, Muroja'ah / Hafalan = Juz, Keaktifan = kali,
+// Halaman Terakhir = "Halaman 437". Total Hafalan = Hafalan Depan + Hafalan Belakang (otomatis).
+// KECUALI Muroja'ah (dan batas minimal muroja'ah): boleh ditulis pecahan, mis. 1 ½, ½, ⅓, ⅔, ¼, ¾ (juga 1 1/2 atau 1,5).
+// Mau ubah satuan Muroja'ah / Hafalan? Ganti tulisan 'Juz' di HF_U (hasil tampilan) dan di hfRow (kotak isian).
+const HF_A='2026-10-01',HF_Z='2026-10-31';   // rentang tanggal bawaan (1 bulan)
+const HF={v:{},bk:'',bm:'',ok:false,n:0,cur:null},   // v[id santri] = {t,m,k,h,d,b}; ok = data periode ini sudah dimuat dari server; cur = kotak Muroja'ah yang terakhir diklik
+  HH={rows:[],open:null,q:0,tot:0};
+
+// ---- Pecahan Muroja'ah (aturan SAMA dengan frP_ di Code.gs) ----
+// Terima: "2" | "1,5" | ".5" | "½" | "1½" | "1 ½" | "⅓" | "1/2" | "1 1/2" | "1 2/3"
+// Hasil {n: angka untuk perbandingan, s: tulisan rapi} atau null bila tidak valid
+const FR={'\u00BD':1/2,'\u2153':1/3,'\u2154':2/3,'\u00BC':1/4,'\u00BE':3/4},FR_C='\u00BD\u2153\u2154\u00BC\u00BE';
+function frP(v){
+  let s=String(v==null?'':v).trim();if(!s)return null;
+  s=s.replace(/[\u2044\u2215]/g,'/').replace(/,/g,'.').replace(new RegExp('(['+FR_C+'])','g'),' $1 ').replace(/\s+/g,' ').trim();
+  let w=0,f=0,sl=false,m;
+  if((m=/^(\d+(?:\.\d+)?|\.\d+)$/.exec(s)))w=parseFloat(m[1]);
+  else if((m=new RegExp('^(?:(\\d+) )?(['+FR_C+'])$').exec(s))){w=m[1]?+m[1]:0;f=FR[m[2]]}
+  else if((m=/^(?:(\d+) )?(\d+)\/(\d+)$/.exec(s))){if(!+m[3])return null;w=m[1]?+m[1]:0;f=+m[2]/+m[3];sl=true}
+  else return null;
+  const val=w+f;let whole=Math.floor(val+1e-9),fr=val-whole;
+  if(fr>0.9925){whole++;fr=0}
+  if(fr<0.0075)return{n:whole,s:String(whole)};
+  const c=Object.keys(FR).find(k=>Math.abs(FR[k]-fr)<0.0075);
+  if(c)return{n:whole+FR[c],s:(whole?whole+' ':'')+c};
+  if(sl)return null;   // pecahan lain (mis. 1/8) tidak dikenali
+  const n=Math.round(val*100)/100;return{n,s:String(n)}}
+// Tulisan rapi untuk layar (desimal pakai koma): "1.5" -> "1 ½", "2" -> "2", kosong -> ""
+function frShow(v){if(v===''||v==null)return'';const p=frP(v);return p?p.s.replace('.',','):String(v)}
+
+const HF_U={t:v=>v+' Halaman',m:v=>v+' Juz',k:v=>v+' kali',h:v=>'Halaman '+v,d:v=>v+' Juz',b:v=>v+' Juz',T:v=>v+' Juz'},
+  HL=[['t','Tambahan'],['m',"Muroja'ah"],['k','Keaktifan'],['h','Hal. Terakhir'],['d','Hafalan Depan'],['b','Hafalan Belakang'],['T','Total']],
+  hfF=(f,v)=>v===''||v==null?'-':HF_U[f](f=='m'?frShow(v):nf(v)),   // contoh: ('k','17') -> "17 kali" | ('m','1.5') -> "1 ½ Juz"
+  hfSan=()=>S.slice().sort((a,b)=>a.nama.localeCompare(b.nama,'id'));   // santri kamar admin ini, urut nama
+function hfTot(v){const d=v.d??'',b=v.b??'';
+  return d===''&&b===''?'-':HF_U.T(nf(Math.round(((+d||0)+(+b||0))*100)/100))}
+// Satu kotak angka + satuan di dalamnya (pre = satuan di depan angka, suf = satuan di belakang)
+const hfIn=(f,v,nm,l,suf,pre)=>`<div class="uw${pre?' pf':''}"><input class="in" type="number" inputmode="decimal" min="0" step="any" data-f="${f}" value="${esc(v)}" aria-label="${esc(l+' '+nm)}"><span class="su">${pre||suf}</span></div>`;
+// Kotak Muroja'ah: teks bebas (angka / pecahan), dirapikan otomatis saat selesai mengetik
+const hfFr=(v,nm)=>`<div class="uw"><input class="in${v&&!frP(v)?' inv':''}" type="text" inputmode="text" autocomplete="off" autocapitalize="none" spellcheck="false" maxlength="14" placeholder="1 ½" data-f="m" value="${esc(v)}" aria-label="${esc("Muroja'ah "+nm)}"><span class="su">Juz</span></div>`;
+function hfRow(x,i){const v=HF.v[x.id]||{};
+  return `<tr data-id="${esc(x.id)}"><td class="r">${i+1}</td><td class="nm"><b>${esc(x.nama)}</b></td>`
+   +`<td>${hfIn('t',v.t,x.nama,'Tambahan','Halaman')}</td>`
+   +`<td>${hfFr(v.m,x.nama)}</td>`
+   +`<td>${hfIn('k',v.k,x.nama,'Keaktifan','kali')}</td>`
+   +`<td>${hfIn('h',v.h,x.nama,'Halaman terakhir','','Halaman')}</td>`
+   +`<td>${hfIn('d',v.d,x.nama,'Hafalan depan','Juz')}</td>`
+   +`<td>${hfIn('b',v.b,x.nama,'Hafalan belakang','Juz')}</td>`
+   +`<td class="tt">${hfTot(v)}</td></tr>`}
+function hfDraw(){
+  const P=hfSan();
+  $('hf_kt').textContent=me?'Kamar MAQOMIN AMIN '+me.kamar+' · '+P.length+' santri':'';
+  $('hf_bk').value=HF.bk;$('hf_bm').value=HF.bm;
+  $('hf_b').innerHTML=P.length?P.map(hfRow).join(''):'<tr><td colspan="9" class="mu">Belum ada santri di kamar ini. Tambahkan dulu di menu Beranda.</td></tr>';
+  $('hf_s').disabled=!P.length}
+function hfReset(){
+  HF.v={};HF.bk='';HF.bm='';HF.ok=false;HF.n++;HF.cur=null;HH.rows=[];HH.open=null;HH.q++;
+  $('hf_a').value=HF_A;$('hf_z').value=HF_Z;$('hf_bk').value='';$('hf_bm').value='';$('hf_bm').classList.remove('inv');
+  $('hf_b').innerHTML='';$('hf_h').textContent='';$('hf_kt').textContent='';$('hf_s').disabled=true;$('hh_b').innerHTML='';$('hh_c').textContent=''}
+// Ambil data hafalan yang sudah tersimpan untuk rentang tanggal ini (batas minimal ikut terisi bila ada)
+function hfLoad(cb){
+  const a=$('hf_a').value,z=$('hf_z').value,n=++HF.n;
+  if(!a||!z||a>z){HF.v={};hfDraw();$('hf_s').disabled=true;
+    $('hf_h').textContent=!a||!z?'Pilih rentang tanggal dulu.':'Tanggal awal tidak boleh setelah tanggal akhir.';return}
+  $('hf_h').textContent='Memuat data tersimpan...';$('hf_s').disabled=true;
+  api('hfzGet',{a,b:z}).then(r=>{if(n!=HF.n)return;
+    HF.v={};Object.keys(r.r||{}).forEach(id=>{const q=r.r[id];HF.v[id]={t:q[0],m:frShow(q[1]),k:q[2],h:q[3],d:q[4],b:q[5]}});
+    if(r.has){HF.bk=r.bk;HF.bm=frShow(r.bm)}
+    HF.ok=true;hfDraw();
+    $('hf_h').textContent=r.has?'Menampilkan data hafalan yang sudah tersimpan pada periode ini.':'Belum ada data tersimpan pada periode ini.';
+    if(cb)cb()})
+   .catch(e=>{if(n==HF.n){hfDraw();$('hf_h').textContent='';toast(e,1)}})}
+function hfSave(){
+  const a=$('hf_a').value,z=$('hf_z').value,P=hfSan();
+  if(!a||!z)return toast('Pilih rentang tanggal dulu',1);
+  if(a>z)return toast('Tanggal awal tidak boleh setelah tanggal akhir',1);
+  if(!P.length)return;
+  // Muroja'ah (dan batasnya): kosong boleh; selain itu harus angka / pecahan valid, maksimal 30 Juz
+  const bad=(i,m)=>{toast(m,1);if(i){i.classList.add('inv');i.scrollIntoView({block:'center',behavior:'smooth'});i.focus({preventScroll:true})}},
+    chk=v=>{const t=String(v==null?'':v).trim();if(t==='')return'';const p=frP(t);return p&&p.n<=30?p.s:null},
+    bm=chk(HF.bm);
+  if(bm===null)return bad($('hf_bm'),"Batas minimal muroja'ah tidak valid (maksimal 30 Juz). Contoh: 1 ½, ½, ⅓, 2");
+  const l=[];
+  for(const x of P){
+    const v=HF.v[x.id]||{},m=chk(v.m);
+    if(m===null){const tr=[...$('hf_b').children].find(r=>r.dataset.id==x.id);
+      return bad(tr&&tr.querySelector('input[data-f="m"]'),"Muroja'ah "+x.nama+' tidak valid (maksimal 30 Juz). Contoh: 1 ½, ½, ⅓, 2')}
+    l.push(Object.assign({id:x.id},v,{m}))}
+  const b=$('hf_s');
+  b.disabled=true;b.textContent='Menyimpan...';
+  api('hfzSave',{a,b:z,bk:HF.bk,bm,l}).then(()=>{HF.ok=true;toast('Data hafalan tersimpan');hhLoad()},e=>toast(e,1))
+   .then(()=>{b.textContent='Simpan hafalan';b.disabled=!hfSan().length})}
+$('hf_a').value=HF_A;$('hf_z').value=HF_Z;
+$('hf_a').onchange=()=>hfLoad();$('hf_z').onchange=()=>hfLoad();$('hf_s').onclick=hfSave;
+$('hf_bk').oninput=()=>{HF.bk=$('hf_bk').value};
+$('hf_bm').oninput=()=>{HF.bm=$('hf_bm').value;$('hf_bm').classList.remove('inv')};
+// Ketik angka di tabel: simpan di memori halaman; Total Hafalan langsung dihitung ulang
+$('hf_b').oninput=e=>{const i=e.target.closest('input[data-f]');if(!i)return;
+  const tr=i.closest('tr'),id=tr.dataset.id,v=HF.v[id]||(HF.v[id]={});v[i.dataset.f]=i.value;
+  if(i.dataset.f=='m')i.classList.remove('inv');
+  if(i.dataset.f=='d'||i.dataset.f=='b')tr.querySelector('.tt').textContent=hfTot(v)};
+// Selesai mengetik Muroja'ah: tulisan dirapikan (1/2 -> ½, 1,5 -> 1 ½, 1½ -> 1 ½); yang tidak valid ditandai merah
+function frFix(i){
+  const t=i.value.trim();
+  if(t===''){i.classList.remove('inv');return}
+  const p=frP(t);
+  if(!p){i.classList.add('inv');return toast('Penulisan tidak valid. Contoh: 1 ½, ½, ⅓, 2 atau 1,5',1)}
+  if(p.n>30){i.classList.add('inv');return toast("Muroja'ah maksimal 30 Juz",1)}
+  i.classList.remove('inv');i.value=frShow(t);
+  i.dispatchEvent(new Event('input',{bubbles:true}))}   // perbarui juga data di memori halaman
+$('hf_b').onchange=e=>{const i=e.target.closest('input[data-f="m"]');if(i)frFix(i)};
+$('hf_bm').onchange=()=>frFix($('hf_bm'));
+// Tombol cepat ½ ⅓ ⅔ ¼ ¾: dimasukkan ke kotak Muroja'ah yang terakhir diklik (atau kotak batas minimal Muroja'ah)
+$('hf_b').addEventListener('focusin',e=>{if(e.target.matches('input[data-f="m"]'))HF.cur=e.target});
+$('hf_bm').addEventListener('focus',()=>{HF.cur=$('hf_bm')});
+$('hf_fr').onmousedown=e=>{if(e.target.closest('button'))e.preventDefault()};   // kotak tetap fokus saat tombol ditekan
+$('hf_fr').onclick=e=>{
+  const b=e.target.closest('button[data-c]');if(!b)return;
+  const i=HF.cur;if(!i||!i.isConnected)return toast("Klik dulu kotak Muroja'ah yang ingin diisi",1);
+  const s=i.selectionStart==null?i.value.length:i.selectionStart,t=i.selectionEnd==null?s:i.selectionEnd;
+  let pre=i.value.slice(0,s).replace(new RegExp('['+FR_C+']\\s*$'),'');   // pecahan sebelumnya diganti, bukan ditumpuk
+  const post=i.value.slice(t);
+  if(/\d$/.test(pre))pre+=' ';   // "1" + ½ -> "1 ½"
+  i.value=pre+b.dataset.c+post;
+  i.focus({preventScroll:true});const c=pre.length+1;try{i.setSelectionRange(c,c)}catch(x){}
+  i.classList.remove('inv');
+  i.dispatchEvent(new Event('input',{bubbles:true}))};
+
+// ----- Riwayat input hafalan: edit (muat ke form) dan hapus -----
+function hhBatas(g){
+  return g.bk===''&&g.bm===''?'-':`Keaktifan <b>${esc(hfF('k',g.bk))}</b><br>Muroja'ah <b>${esc(hfF('m',g.bm))}</b>`}
+function hhSum(g){const n=g.l.length,f=g.l.filter(x=>x.slice(2,9).some(v=>v!=='')).length;
+  return n==1?`<b>${esc(g.l[0][1])}</b>`:n+' santri, '+f+' sudah terisi'}
+function hhDraw(){
+  const H=HH.rows;
+  $('hh_c').textContent=H.length?(HH.tot>H.length?H.length+' dari '+HH.tot+' input terbaru':H.length+' input'):'';
+  $('hh_b').innerHTML=H.length?H.map((g,i)=>{
+    const op=HH.open===i;
+    return `<tr><td>${fd(g.a)} – ${fd(g.b)}</td><td>${hhBatas(g)}</td><td>${hhSum(g)}</td><td class="hs-a"><button class="btn o" data-h="det" data-i="${i}">${op?'Tutup':'Rincian'}</button><button class="btn o" data-h="edit" data-i="${i}">Edit</button><button class="btn d" data-h="del" data-i="${i}">Hapus</button></td></tr>`
+    +(op?`<tr class="hs-d"><td colspan="4"><div class="hh-l">${g.l.map((x,j)=>`<div><b>${esc(x[1])}</b><p>${HL.map((a,q)=>`<span>${a[1]}: <strong>${esc(hfF(a[0],x[2+q]))}</strong></span>`).join('')}</p>${S.some(s=>s.id==x[0])?`<button class="btn o" data-h="pe" data-i="${i}" data-j="${j}">Edit</button>`:''}<button class="btn d" data-h="pd" data-i="${i}" data-j="${j}">Hapus</button></div>`).join('')}</div></td></tr>`:'')}).join('')
+    :'<tr><td colspan="4" class="mu">Belum ada riwayat input hafalan.</td></tr>'}
+function hhLoad(){
+  const n=++HH.q;
+  api('hfzHist').then(r=>{if(n!=HH.q)return;
+    HH.rows=(r.h||[]).map(g=>(g.l.sort((a,b)=>a[1].localeCompare(b[1],'id')),g));
+    HH.tot=r.n||HH.rows.length;HH.open=null;hhDraw()},
+   e=>{if(n==HH.q)toast(e,1)})}
+// Muat satu periode ke form di atas; id = santri tertentu -> barisnya disorot dan kotak pertamanya difokuskan
+function hhEdit(g,id){
+  $('hf_a').value=g.a;$('hf_z').value=g.b;HF.bk=g.bk;HF.bm=frShow(g.bm);
+  if(!id)window.scrollTo({top:0,behavior:'smooth'});
+  hfLoad(()=>{
+    if(id){const tr=[...$('hf_b').children].find(r=>r.dataset.id==id);
+      if(tr){tr.classList.add('hl');tr.scrollIntoView({block:'center',behavior:'smooth'});
+        const i=tr.querySelector('input');if(i)i.focus({preventScroll:true});setTimeout(()=>tr.classList.remove('hl'),2500)}}
+    toast('Ubah angka lalu klik Simpan hafalan')})}
+function hhDel(g,id,nm){
+  ask(id?`Hapus data hafalan ${esc(nm)} periode ${fd(g.a)} – ${fd(g.b)}?`
+        :`Hapus seluruh input hafalan periode ${fd(g.a)} – ${fd(g.b)}? Semua nama di input ini ikut terhapus.`,
+    ()=>api('hfzDel',{a:g.a,b:g.b,id}).then(()=>{toast('Riwayat dihapus');hhLoad();if(g.a==$('hf_a').value&&g.b==$('hf_z').value)hfLoad()},e=>toast(e,1)))}
+$('hh_b').onclick=e=>{
+  const b=e.target.closest('button[data-h]');if(!b)return;
+  const i=+b.dataset.i,g=HH.rows[i],a=b.dataset.h,x=g&&g.l[+b.dataset.j];if(!g)return;
+  if(a=='det'){HH.open=HH.open===i?null:i;return hhDraw()}
+  if(a=='edit')return hhEdit(g,'');
+  if(a=='pe'&&x)return hhEdit(g,x[0]);
+  if(a=='del')return hhDel(g,'','');
+  if(a=='pd'&&x)return hhDel(g,x[0],x[1])};
+
+// ===== Kirim Chat (admin pembina) =====
+// Data diambil dari riwayat Input Hafalan (aksi 'hfzHist'): tiap periode berisi nilai semua santri + batas minimal.
+// "Pilih data" = periode (bulan) yang sudah pernah diinput; secara bawaan yang terpilih periode terbaru.
+// Kirim Pesan membuka WhatsApp (wa.me) ke nomor wali santri (No. HP Wali/Ortu di Data Diri) dengan pesan siap kirim.
+// Status mencapai / tidak mencapai target memakai aturan yang sama dengan kartu Data Hafalan (hvSt di atas).
+const CT={rows:[],sel:{},ok:false,q:0},
+  BLN=['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'],
+  ctKey=g=>g.a+'|'+g.b,
+  // "01 Oktober" atau (y=1) "01 Oktober 2026"
+  ctTgl=(t,y)=>{const p=t.split('-');return p[2]+' '+BLN[+p[1]-1]+(y?' '+p[0]:'')},
+  // Baris periode di pesan: "01 Oktober - 31 Oktober 2026" (tahun beda -> keduanya ditulis tahunnya)
+  ctPer=g=>g.a.slice(0,4)==g.b.slice(0,4)?ctTgl(g.a)+' - '+ctTgl(g.b,1):ctTgl(g.a,1)+' - '+ctTgl(g.b,1),
+  // Periode yang memuat santri ini, terbaru di atas
+  ctOpts=id=>CT.rows.filter(g=>g.l.some(x=>x[0]==id)).sort((p,q)=>q.a<p.a?-1:q.a>p.a?1:q.b<p.b?-1:q.b>p.b?1:0);
+// Tulisan di dropdown: "Oktober 2026" bila periode = 1 bulan penuh, selain itu "1 Okt 2026 – 15 Okt 2026"
+function ctLab(g){
+  const a=g.a.split('-'),b=g.b.split('-');
+  return a[0]==b[0]&&a[1]==b[1]&&a[2]=='01'&&+b[2]==new Date(+b[0],+b[1],0).getDate()?BLN[+a[1]-1]+' '+a[0]:fd(g.a)+' – '+fd(g.b)}
+function ctDraw(){
+  const P=hfSan();
+  $('ct_kt').textContent=me?'Kamar MAQOMIN AMIN '+me.kamar+' · '+P.length+' santri':'';
+  $('ct_b').innerHTML=P.length?P.map((x,i)=>{
+    const o=ctOpts(x.id),cur=o.find(g=>ctKey(g)==CT.sel[x.id])||o[0],hp=hpFmt(x.hp);
+    return `<tr data-id="${esc(x.id)}"><td class="r">${i+1}</td>`
+     +`<td class="nm"><b>${esc(x.nama)}</b>${hp?`<small>${esc(hp)}</small>`:'<small class="no">No. HP Wali/Ortu belum diisi</small>'}</td>`
+     +`<td>${o.length?`<select class="in" aria-label="${esc('Pilih data hafalan '+x.nama)}">${o.map(g=>`<option value="${esc(ctKey(g))}"${g===cur?' selected':''}>${esc(ctLab(g))}</option>`).join('')}</select>`:'<span class="mu">Belum ada data hafalan</span>'}</td>`
+     +`<td class="a"><button type="button" class="btn" data-id="${esc(x.id)}"${o.length?'':' disabled'}>Kirim Pesan</button></td></tr>`}).join('')
+    :'<tr><td colspan="4" class="mu">Belum ada santri di kamar ini. Tambahkan dulu di menu Beranda.</td></tr>'}
+function ctLoad(){
+  const n=++CT.q;
+  if(CT.ok)ctDraw();
+  $('ct_h').textContent='Memuat data hafalan...';
+  api('hfzHist').then(r=>{if(n!=CT.q)return;CT.rows=r.h||[];CT.ok=true;ctDraw();
+    $('ct_h').textContent=CT.rows.length?'':'Belum ada data hafalan. Isi dulu di menu Input Hafalan.'},
+   e=>{if(n==CT.q){$('ct_h').textContent='';ctDraw();toast(e,1)}})}
+function ctReset(){CT.rows=[];CT.sel={};CT.ok=false;CT.q++;$('ct_b').innerHTML='';$('ct_h').textContent='';$('ct_kt').textContent=''}
+// Isi pesan WhatsApp. g = periode, l = baris santri di periode itu, ok = true bila mencapai batas minimal.
+// *teks* = tebal di WhatsApp. Kosong pada Muroja'ah / Keaktifan ditulis 0 (sama seperti perhitungan status).
+function ctMsg(x,g,l,ok){
+  const nz=(f,v)=>hfF(f,(f=='k'||f=='m')&&(v===''||v==null)?'0':v),tg=[];
+  if(g.bk!=='')tg.push('- *Keaktifan '+hfF('k',g.bk)+'*');
+  if(g.bm!=='')tg.push('- *Murojaah '+hfF('m',g.bm)+'*');
+  return ['*Assalamualaikum Wr. Wb.*','Kepada yang terhormat','Wali santri '+x.nama.toUpperCase(),
+    'Saya selaku *Pembina Kamar Maqomin Amin '+me.kamar+'* memberikan informasi terkait Data Setoran ananda','',
+    '*'+ctPer(g)+'*','*Target/Batas Tahfidz :*'].concat(tg,[''],[
+    ok?'*Selamat Ananda telah mencapai target minimal dengan rincian* :':'*Ananda tidak mencapai batas minimal, mohon bantuannya untuk mengingatkan ananda agar lebih giat lagi* :',
+    '- Tambahan '+nz('t',l[2]),'- Murojaah '+nz('m',l[3]),'- Keaktifan '+nz('k',l[4]),
+    '- Hafalan Depan '+nz('d',l[6]),'- Hafalan Belakang '+nz('b',l[7]),'- Total Hafalan '+nz('T',l[8]),
+    'Saya minta bantuannya untuk selalu mengingatkan dan memberikan motivasi kepada ananda terkait setoran Al Qur an',
+    'melalui *telefon / video call* setiap minggunya.',
+    'Atas perhatiannya, Saya ucapkan terimakasih \u263A\uFE0F\uD83D\uDE4F\uD83C\uDFFB',"*Wa'alaikumsalam Wr. Wb.*"]).join('\n')}
+function ctSend(id,key){
+  const x=S.find(v=>v.id==id),g=CT.rows.find(r=>ctKey(r)==key),l=g&&g.l.find(r=>r[0]==id);
+  if(!x)return;
+  if(!l)return toast('Pilih data hafalan dulu',1);
+  const hp=hpClean(x.hp);
+  if(!hp)return toast('No. HP Wali/Ortu '+x.nama+' belum diisi. Isi dulu di Data Diri santri',1);
+  if(!/^8\d{7,12}$/.test(hp))return toast('No. HP Wali/Ortu '+x.nama+' tidak valid. Periksa di Data Diri santri',1);
+  const st=hvSt([g.a,g.b,l[2],l[3],l[4],l[5],l[6],l[7],l[8],g.bk,g.bm]).s;
+  if(st=='na')return toast('Batas minimal periode ini belum diisi. Isi dulu di menu Input Hafalan',1);
+  const w=window.open('https://wa.me/62'+hp+'?text='+encodeURIComponent(ctMsg(x,g,l,st=='ok')),'_blank');
+  if(!w)toast('Pop-up diblokir browser. Izinkan pop-up untuk halaman ini lalu coba lagi',1)}
+$('ct_b').onchange=e=>{const s=e.target.closest('select');if(s)CT.sel[s.closest('tr').dataset.id]=s.value};
+$('ct_b').onclick=e=>{const b=e.target.closest('button[data-id]');if(!b||b.disabled)return;
+  const s=b.closest('tr').querySelector('select');ctSend(b.dataset.id,s?s.value:'')};
+
+// ===== Input pelanggaran (admin pembina) =====
+// Isian: tanggal, santri (dropdown santri kamar ini), pelanggaran (teks bebas), bobot (Berat / Sedang / Ringan), keterangan / kronologi (teks bebas, boleh kosong).
+// 1 simpan = 1 catatan di sheet "Pelanggaran". Riwayat kamar ini tampil di bawah form: Edit memuat catatan ke form, Hapus menghilangkan catatan.
+// Catatan otomatis tampil di tab "Data Pelanggaran" pada formulir santri (super admin, pembina, dan santri sendiri; santri hanya melihat).
+const PL_B=['Berat','Sedang','Ringan'],BW={Berat:'b0',Sedang:'b1',Ringan:'b2'},   // BW = warna lencana: merah / kuning / biru
+  PL={rows:[],tot:0,q:0,edit:'',ok:false},   // edit = pid catatan yang sedang diedit ('' = catatan baru)
+  plTgl=()=>new Date(Date.now()-new Date().getTimezoneOffset()*6e4).toISOString().slice(0,10);
+// Judul, tombol, dan petunjuk form mengikuti mode (catatan baru / edit)
+function plUi(){
+  const e=!!PL.edit;
+  $('pl_ft').textContent=e?'Edit pelanggaran santri':'Input pelanggaran santri';
+  $('pl_sv').textContent=e?'Simpan perubahan':'Simpan pelanggaran';
+  $('pl_cn').classList.toggle('hide',!e);
+  $('pl_h').textContent=e?'Mengubah catatan yang sudah tersimpan. Klik Simpan perubahan atau Batal edit.':''}
+// Dropdown santri kamar ini (urut nama); pilihan yang sedang dipilih dipertahankan
+function plDraw(){
+  const P=hfSan(),v=$('pl_s').value;
+  $('pl_kt').textContent=me?'Kamar MAQOMIN AMIN '+me.kamar+' · '+P.length+' santri':'';
+  $('pl_s').innerHTML='<option value="">- Pilih santri -</option>'+P.map(x=>`<option value="${esc(x.id)}"${x.id==v?' selected':''}>${esc(x.nama)}</option>`).join('');
+  $('pl_sv').disabled=!P.length;
+  plList()}
+// r = [pid, tanggal, id santri, nama santri, pelanggaran, bobot, keterangan]
+function plList(){
+  const H=PL.rows;
+  $('pl_hc').textContent=H.length?(PL.tot>H.length?H.length+' dari '+PL.tot+' catatan terbaru':H.length+' catatan'):'';
+  $('pl_hb').innerHTML=H.length?H.map((r,i)=>`<tr><td>${esc(fd(r[1]))}</td><td><b>${esc(r[3])}</b></td><td class="pl-p">${esc(r[4])}</td><td><span class="bw ${BW[r[5]]||''}">${esc(r[5])}</span></td><td class="pl-k">${r[6]?esc(r[6].length>140?r[6].slice(0,140)+'…':r[6]):'-'}</td><td class="hs-a"><button class="btn o" data-h="edit" data-i="${i}">Edit</button><button class="btn d" data-h="del" data-i="${i}">Hapus</button></td></tr>`).join('')
+    :'<tr><td colspan="6" class="mu">Belum ada riwayat input pelanggaran.</td></tr>'}
+function plLoad(){
+  const n=++PL.q;
+  if(!PL.ok)$('pl_hb').innerHTML='<tr><td colspan="6" class="mu">Memuat riwayat...</td></tr>';
+  api('plgHist').then(r=>{if(n!=PL.q)return;PL.rows=r.h||[];PL.tot=r.n||PL.rows.length;PL.ok=true;plList()},
+   e=>{if(n==PL.q){toast(e,1);plList()}})}
+// Kosongkan form (tanggal dipertahankan agar input beberapa santri di hari yang sama lebih cepat)
+function plClear(){
+  PL.edit='';$('pl_s').value='';$('pl_p').value='';$('pl_b').value='';$('pl_k').value='';plUi()}
+function plReset(){
+  PL.rows=[];PL.tot=0;PL.q++;PL.edit='';PL.ok=false;
+  $('pl_s').innerHTML='';$('pl_p').value='';$('pl_b').value='';$('pl_k').value='';$('pl_t').value=plTgl();
+  $('pl_hb').innerHTML='';$('pl_hc').textContent='';$('pl_kt').textContent='';$('pl_sv').disabled=true;plUi()}
+function plSave(){
+  const d={pid:PL.edit,t:$('pl_t').value,id:$('pl_s').value,p:$('pl_p').value.trim().replace(/\s+/g,' '),b:$('pl_b').value,k:$('pl_k').value.trim()};
+  if(!d.t)return toast('Pilih tanggal dulu',1);
+  if(!d.id)return toast('Pilih santri dulu',1);
+  if(!d.p)return toast('Pelanggaran wajib diisi',1);
+  if(!d.b)return toast('Pilih bobot pelanggaran dulu',1);
+  const b=$('pl_sv');
+  b.disabled=true;b.textContent='Menyimpan...';
+  api('plgSave',d).then(()=>{toast(d.pid?'Perubahan tersimpan':'Pelanggaran tersimpan');plClear();plLoad()},e=>toast(e,1))
+   .then(()=>{b.disabled=!hfSan().length;plUi()})}
+// Muat satu catatan ke form di atas
+function plEdit(r){
+  PL.edit=r[0];$('pl_t').value=r[1];$('pl_s').value=r[2];$('pl_p').value=r[4];$('pl_b').value=r[5];$('pl_k').value=r[6];
+  plUi();window.scrollTo({top:0,behavior:'smooth'});
+  toast('Ubah data lalu klik Simpan perubahan')}
+$('pl_t').value=plTgl();
+$('pl_sv').onclick=plSave;
+$('pl_cn').onclick=()=>{plClear();toast('Edit dibatalkan')};
+$('pl_hb').onclick=e=>{
+  const b=e.target.closest('button[data-h]');if(!b)return;
+  const r=PL.rows[+b.dataset.i];if(!r)return;
+  if(b.dataset.h=='edit')return plEdit(r);
+  if(b.dataset.h=='del')return ask(`Hapus catatan pelanggaran ${esc(r[3])} tanggal ${esc(fd(r[1]))}?`,
+    ()=>api('plgDel',{pid:r[0]}).then(()=>{toast('Catatan dihapus');if(PL.edit==r[0])plClear();plLoad()},er=>toast(er,1)))};
+
+// ===== Filter santri (super admin = seluruh santri, admin pembina = santri kamarnya sendiri) =====
+// Data diri diambil dari daftar santri di halaman (S, sudah dibatasi server sesuai role). Hafalan (SEMUA periode) dan catatan
+// pelanggaran diambil dari server lewat aksi 'fltData' setiap menu dibuka (atau klik Muat ulang data).
+// Penyaringan, pengurutan, dan kotak keterangan dihitung di browser, jadi hasilnya langsung berubah begitu filter diganti.
+// Aturan: santri yang tidak punya data untuk filter yang dipilih TIDAK ditampilkan (mis. filter Program PASCA = hanya santri PASCA).
+// Filter Hafalan memakai periode yang dipilih; "Terbaru" = periode terakhir tiap santri. Total Hafalan = Hafalan Depan + Belakang (Juz).
+// Pelanggaran dihitung per bobot (Berat / Sedang / Ringan); Total = jumlah ketiganya, bisa dibatasi rentang tanggal.
+// Tombol "Sembunyikan santri yang tidak punya data untuk urutan ini": saat diurutkan menurut kolom hafalan / pelanggaran,
+// santri yang kolom itu kosong (atau 0 untuk pelanggaran) disembunyikan; matikan bila ingin tetap melihat semua nama.
+const CF={ok:false,err:'',q:0,h:{},g:{}},FL={hd:true},
+  // [kunci, label, jenis]  jenis: 0 = teks (data diri) | 1 = angka hafalan | 2 = jumlah pelanggaran
+  FL_C=[['kamar','Kamar',0],['nama','Nama',0],['kelas','Kelas',0],['program','Program',0],
+    ['T','Total Hafalan',1],['t','Tambahan',1],['m',"Muroja'ah",1],['k','Keaktifan',1],['h','Halaman Terakhir',1],['d','Hafalan Depan',1],['b','Hafalan Belakang',1],
+    ['pt','Total Pelanggaran (Berat + Sedang + Ringan)',2],['pb','Pelanggaran Berat',2],['ps','Pelanggaran Sedang',2],['pr','Pelanggaran Ringan',2]],
+  FL_T=k=>FL_C.find(c=>c[0]==k)||FL_C[0],
+  flN=v=>v===''||v==null||isNaN(+v)?null:+v,
+  flK=v=>String(v==null?'':v).replace(/\s+/g,' ').trim().toLowerCase(),
+  flTx=(a,b)=>String(a).localeCompare(String(b),'id',{numeric:true});
+// Isi dropdown; pilihan yang sedang aktif dipertahankan, dan isi tidak dibangun ulang bila daftarnya sama
+function flOpt(id,list,def){
+  const s=$(id),sig=JSON.stringify(list);
+  if(s.dataset.sig===sig)return;
+  const old=s.value;s.dataset.sig=sig;
+  s.innerHTML=list.map(o=>`<option value="${esc(o[0])}">${esc(o[1])}</option>`).join('');
+  s.value=list.some(o=>o[0]==old)?old:def}
+// Dropdown yang isinya tergantung data: Kamar (super admin), Kelas, Periode hafalan
+function flFill(){
+  const sup=me.role=='super',cnt={};S.forEach(x=>cnt[x.kamar]=(cnt[x.kamar]||0)+1);
+  $('fl_kmw').classList.toggle('hide',!sup);
+  $('fl_kt').textContent=sup?'Seluruh santri · '+S.length+' santri di semua kamar':'Kamar MAQOMIN AMIN '+me.kamar+' · '+S.length+' santri';
+  flOpt('fl_km',[['','Semua kamar']].concat(rooms.map(r=>[r,'Kamar '+r+' ('+(cnt[r]||0)+' santri)'])),'');
+  const kl={};S.forEach(x=>{const k=flK(x.kelas);if(k&&!kl[k])kl[k]=String(x.kelas).replace(/\s+/g,' ').trim()});
+  flOpt('fl_kl',[['','Semua kelas']].concat(Object.keys(kl).sort((a,b)=>flTx(kl[a],kl[b])).map(k=>[k,kl[k]]),S.some(x=>!flK(x.kelas))?[['-','(Belum diisi)']]:[]),'');
+  const pk={};Object.keys(CF.h).forEach(id=>CF.h[id].forEach(r=>{pk[r[0]+'|'+r[1]]=[r[0],r[1]]}));
+  flOpt('fl_pr',[['','Terbaru (periode terakhir tiap santri)']].concat(Object.keys(pk).map(k=>pk[k])
+    .sort((p,q)=>q[0]<p[0]?-1:q[0]>p[0]?1:q[1]<p[1]?-1:q[1]>p[1]?1:0).map(p=>[p[0]+'|'+p[1],ctLab({a:p[0],b:p[1]})])),'')}
+// Pilihan arah mengikuti jenis kolom yang diurutkan (teks: A-Z, angka: terbanyak-terendah); reset = kembali ke arah bawaan
+function flDir(reset){
+  const num=FL_T($('fl_sk').value)[2]>0,s=$('fl_sd'),old=s.value;
+  s.innerHTML=num?'<option value="desc">Terbanyak ke terendah</option><option value="asc">Terendah ke terbanyak</option>'
+    :'<option value="asc">A ke Z</option><option value="desc">Z ke A</option>';
+  s.value=reset||!old?(num?'desc':'asc'):old}
+function flChk(){const b=$('fl_hd');b.classList.toggle('on',FL.hd);b.setAttribute('aria-pressed',FL.hd)}
+function flDefaults(){
+  ['fl_q','fl_hm','fl_pa','fl_pz','fl_km','fl_pg','fl_kl','fl_pr','fl_hs','fl_pb'].forEach(i=>{$(i).value=''});
+  $('fl_sk').value='kamar';flDir(true);FL.hd=true;flChk()}
+function flInit(){
+  const g=['Data diri','Hafalan','Pelanggaran'];
+  $('fl_sk').innerHTML=g.map((n,i)=>`<optgroup label="${n}">${FL_C.filter(c=>c[2]==i).map(c=>`<option value="${c[0]}">${esc(c[1])}</option>`).join('')}</optgroup>`).join('');
+  $('fl_pg').innerHTML=[['','Semua program']].concat(PROG.map(p=>[p,p]),[['-','(Belum diisi)']]).map(o=>`<option value="${esc(o[0])}">${esc(o[1])}</option>`).join('');
+  flDefaults()}
+// Baca semua isian filter
+function flGet(){
+  const hm=$('fl_hm').value.trim().replace(',','.'),pa=$('fl_pa').value,pz=$('fl_pz').value,bad=!!(pa&&pz&&pa>pz);
+  return{q:$('fl_q').value.trim().replace(/\s+/g,' '),km:$('fl_km').value,pg:$('fl_pg').value,kl:$('fl_kl').value,pr:$('fl_pr').value,
+    hs:$('fl_hs').value,hm:hm===''||isNaN(+hm)?null:+hm,pb:$('fl_pb').value,pa:bad?'':pa,pz:bad?'':pz,bad,
+    sk:$('fl_sk').value||'kamar',sd:$('fl_sd').value||'asc',hd:FL.hd}}
+// Satu santri -> data siap saring: r = baris hafalan periode terpilih, hs = status batas, v = angka hafalan, p = jumlah pelanggaran
+function flModel(x,f){
+  const H=CF.h[x.id]||[],r=f.pr?(H.find(q=>q[0]+'|'+q[1]==f.pr)||null):(H.length?H[H.length-1]:null),
+    c=[0,0,0],m=v=>{const p=frP(v);return p?p.n:null};
+  (CF.g[x.id]||[]).forEach(q=>{
+    if((f.pa&&q[0]<f.pa)||(f.pz&&q[0]>f.pz))return;
+    const i=PL_B.indexOf(q[1]);if(i>=0)c[i]++});
+  return{x,r,hs:r?hvSt(r):null,
+    v:r?{t:flN(r[2]),m:r[3]===''?null:m(r[3]),k:flN(r[4]),h:flN(r[5]),d:flN(r[6]),b:flN(r[7]),T:flN(r[8])}:{},
+    p:{b:c[0],s:c[1],r:c[2],t:c[0]+c[1]+c[2]}}}
+// Nilai satu kolom (untuk urutan): teks / angka; null = tidak ada data
+function flVal(o,k){
+  if(k=='pt')return o.p.t;if(k=='pb')return o.p.b;if(k=='ps')return o.p.s;if(k=='pr')return o.p.r;
+  if(k=='nama'||k=='kamar'||k=='kelas'||k=='program')return o.x[k]||'';
+  const v=o.v[k];return v===undefined?null:v}
+// Saring + urutkan. n1 = jumlah setelah semua filter, L = daftar akhir (setelah santri tanpa data disembunyikan)
+function flRun(f){
+  const sup=me.role=='super',col=FL_T(f.sk),d=f.sd=='desc'?-1:1,w=f.q.toLowerCase().split(' ').filter(Boolean);
+  let L=S.filter(x=>{
+    if(sup&&f.km&&x.kamar!=f.km)return false;
+    const pg=String(x.program||'').toUpperCase();
+    if(f.pg=='-'){if(pg)return false}else if(f.pg&&pg!=f.pg)return false;
+    if(f.kl=='-'){if(flK(x.kelas))return false}else if(f.kl&&flK(x.kelas)!=f.kl)return false;
+    if(w.length){const hs=[x.nama,x.panggilan,x.induk,x.kamar,x.kelas,x.program,x.alamat,x.bakat,x.lomba,x.organisasi,x.hp,hpFmt(x.hp)].join(' ').toLowerCase();
+      if(!w.every(t=>hs.includes(t)))return false}
+    return true}).map(x=>flModel(x,f));
+  L=L.filter(o=>{
+    if(f.pr&&!o.r)return false;
+    if(f.hs&&!(o.hs&&o.hs.s==f.hs))return false;
+    if(f.hm!==null&&!(o.v.T!=null&&o.v.T>=f.hm))return false;
+    if(f.pb=='any'&&!o.p.t)return false;
+    if(f.pb=='none'&&o.p.t)return false;
+    if(f.pb=='Berat'&&!o.p.b)return false;
+    if(f.pb=='Sedang'&&!o.p.s)return false;
+    if(f.pb=='Ringan'&&!o.p.r)return false;
+    return true});
+  const n1=L.length;
+  if(f.hd&&col[2])L=L.filter(o=>{const v=flVal(o,f.sk);return v!=null&&(col[2]==1||v>0)});
+  L.sort((p,q)=>{
+    const a=flVal(p,f.sk),b=flVal(q,f.sk);let c=0;
+    if(col[2]){   // angka: yang kosong selalu di bawah
+      if(a==null&&b!=null)return 1;if(b==null&&a!=null)return -1;
+      c=a==null?0:(a-b)*d;
+      if(!c&&col[2]==2)c=q.p.t-p.p.t||q.p.b-p.p.b||q.p.s-p.p.s||q.p.r-p.p.r}   // pelanggaran sama banyak: yang total / berat lebih banyak di atas
+    else{         // teks: yang kosong selalu di bawah
+      if(!a&&b)return 1;if(!b&&a)return -1;c=flTx(a,b)*d}
+    return c||flTx(p.x.kamar,q.x.kamar)||flTx(p.x.nama,q.x.nama)});
+  return{L,n1,col}}
+// Kotak keterangan di atas semua filter dan data, mis. "PASCA, Kelas MA 10, Pelanggaran Ringan ada 4 Santri"
+function flSum(f,R){
+  const sup=me.role=='super',P=[],op=id=>{const s=$(id);return s.selectedIndex<0?'':s.options[s.selectedIndex].textContent};
+  if(!sup)P.push('Kamar '+me.kamar);else if(f.km)P.push('Kamar '+f.km);
+  if(f.pg)P.push(f.pg=='-'?'Program belum diisi':f.pg);
+  if(f.kl)P.push(f.kl=='-'?'Kelas belum diisi':'Kelas '+op('fl_kl'));
+  if(f.q)P.push('Pencarian "'+f.q+'"');
+  if(f.pr)P.push('Hafalan '+op('fl_pr'));
+  if(f.hs)P.push('Hafalan '+(f.hs=='ok'?'memenuhi batas':'belum memenuhi batas')+(f.pr?'':' (periode terbaru)'));
+  if(f.hm!==null)P.push('Total hafalan minimal '+nf(f.hm)+' Juz');
+  if(f.pb)P.push(f.pb=='any'?'Ada pelanggaran':f.pb=='none'?'Tanpa pelanggaran':'Pelanggaran '+f.pb);
+  if(f.pa||f.pz)P.push('Tanggal pelanggaran '+(f.pa&&f.pz?fd(f.pa)+' sampai '+fd(f.pz):f.pa?'sejak '+fd(f.pa):'sampai '+fd(f.pz)));
+  const n=R.L.length,lb=P.length?P.join(', '):'Semua santri',sub=[],
+    dir=f.sd=='desc'?(R.col[2]?'terbanyak ke terendah':'Z ke A'):(R.col[2]?'terendah ke terbanyak':'A ke Z');
+  if(P.length>(sup?0:1))sub.push('Dari '+S.length+' santri '+(sup?'di seluruh asrama':'di kamar ini')+'.');
+  if(R.n1>n)sub.push((R.n1-n)+' santri disembunyikan karena belum punya data untuk urutan "'+R.col[1]+'". Matikan tombol Sembunyikan di bawah untuk menampilkannya.');
+  sub.push('Diurutkan menurut '+R.col[1]+', '+dir+'.');
+  return `<div class="fl-big">${esc(lb)} ${n?`ada <b>${n}</b> Santri`:'&mdash; <b>tidak ada</b> santri yang cocok'}</div><div class="fl-sub">${sub.map(esc).join('<br>')}</div>`}
+// Satu baris tabel (per santri, menyamping): data diri | hafalan | pelanggaran
+const flW=v=>`<td class="w">${esc(v)||'-'}</td>`,
+  flPc=(v,c)=>`<td class="n${v?' '+c:''}">${v}</td>`,
+  FL_ST={ok:'Memenuhi batas',bad:'Belum memenuhi',na:'Batas belum diisi'};
+function flRow(o,i,per){
+  const x=o.x,r=o.r,p=o.p,s=o.hs;
+  const h=r?`<td>${esc(ctLab({a:r[0],b:r[1]}))}</td><td>${esc(hfF('t',r[2]))}</td><td class="${hvC(s.cm).trim()}">${esc(hfF('m',r[3]))}</td><td class="${hvC(s.ck).trim()}">${esc(hfF('k',r[4]))}</td><td>${esc(hfF('h',r[5]))}</td><td>${esc(hfF('d',r[6]))}</td><td>${esc(hfF('b',r[7]))}</td><td><b>${esc(hfF('T',r[8]))}</b></td><td><span class="st-b ${s.s}">${FL_ST[s.s]}</span></td>`
+    :`<td colspan="9" class="mu">Belum ada data hafalan${per?' pada periode ini':''}</td>`;
+  return `<tr data-id="${esc(x.id)}" tabindex="0"><td class="sk c0 r">${i+1}</td><td class="sk c1"><b>${esc(x.nama)}</b></td><td>${esc(x.panggilan)||'-'}</td><td>${esc(x.induk)||'-'}</td><td>${esc(x.kamar)}</td><td>${esc(x.kelas)||'-'}</td><td>${esc(x.program)||'-'}</td>${flW(x.alamat)}${flW(x.bakat)}${flW(x.lomba)}${flW(x.organisasi)}<td>${esc(hpFmt(x.hp))||'-'}</td>${h}${flPc(p.b,'b0')}${flPc(p.s,'b1')}${flPc(p.r,'b2')}<td class="n"><b>${p.t}</b></td></tr>`}
+// Tanda panah urutan di judul kolom
+function flMark(f){
+  document.querySelectorAll('#fl_th th[data-k]').forEach(t=>{const on=t.dataset.k==f.sk;
+    t.classList.toggle('on',on);t.classList.toggle('dn',on&&f.sd=='desc');t.setAttribute('aria-sort',on?(f.sd=='desc'?'descending':'ascending'):'none')})}
+function fltDraw(){
+  if(!me||me.role=='user')return;
+  flFill();
+  const f=flGet();flMark(f);
+  $('fl_h').textContent=f.bad?'Tanggal awal tidak boleh setelah tanggal akhir, jadi rentang tanggal pelanggaran diabaikan.':'';
+  if(!CF.ok){
+    $('fl_sum').innerHTML=`<div class="fl-big"><span class="mu">${CF.err?esc(CF.err)+'. Klik Muat ulang data.':'Memuat data santri, hafalan, dan pelanggaran...'}</span></div>`;
+    $('fl_b').innerHTML='';return}
+  const R=flRun(f);
+  $('fl_sum').innerHTML=flSum(f,R);
+  $('fl_b').innerHTML=R.L.length?R.L.map((o,i)=>flRow(o,i,f.pr)).join('')
+    :'<tr><td colspan="25" class="mu">Tidak ada santri yang cocok dengan filter ini. Ubah filter, atau matikan tombol Sembunyikan bila ingin melihat santri tanpa data.</td></tr>'}
+function fltLoad(){
+  const n=++CF.q;CF.err='';
+  fltDraw();
+  api('fltData').then(r=>{if(n!=CF.q)return;CF.h=r.h||{};CF.g=r.g||{};CF.ok=true;CF.err='';fltDraw()},
+   e=>{if(n!=CF.q)return;CF.err=String(e);toast(e,1);fltDraw()})}
+function fltReset(){
+  CF.ok=false;CF.err='';CF.h={};CF.g={};CF.q++;
+  ['fl_km','fl_kl','fl_pr'].forEach(i=>{$(i).innerHTML='';delete $(i).dataset.sig});
+  flDefaults();
+  $('fl_sum').innerHTML='';$('fl_b').innerHTML='';$('fl_h').textContent='';$('fl_kt').textContent=''}
+// Klik judul kolom: urutkan menurut kolom itu (klik lagi = balik arah)
+function flSort(k){
+  const s=$('fl_sk');
+  if(s.value==k)$('fl_sd').value=$('fl_sd').value=='asc'?'desc':'asc';
+  else{s.value=k;flDir(true)}
+  fltDraw()}
+{const go=()=>{if(me&&me.role!='user')fltDraw()};
+  $('flt').addEventListener('input',e=>{if(e.target.matches('input,select')&&e.target.id!='fl_sk')go()});
+  $('flt').addEventListener('change',e=>{if(!e.target.matches('input,select'))return;if(e.target.id=='fl_sk')flDir(true);go()});
+  $('fl_hd').onclick=()=>{FL.hd=!FL.hd;flChk();go()};
+  $('fl_rs').onclick=()=>{flDefaults();go();toast('Filter dikembalikan seperti awal')};
+  $('fl_rl').onclick=()=>fltLoad();
+  $('fl_th').onclick=e=>{const t=e.target.closest('th[data-k]');if(t)flSort(t.dataset.k)};
+  $('fl_th').onkeydown=e=>{if(e.key=='Enter'||e.key==' '){const t=e.target.closest('th[data-k]');if(t){e.preventDefault();flSort(t.dataset.k)}}};
+  $('fl_b').onclick=e=>{const t=e.target.closest('tr[data-id]');if(t)show(t.dataset.id)};
+  $('fl_b').onkeydown=e=>{if(e.key=='Enter'){const t=e.target.closest('tr[data-id]');if(t)show(t.dataset.id)}}}
+
+// Mulai
+$('a_k').innerHTML=rooms.map(r=>`<option>${r}</option>`).join('');jb();flInit();
+$('lb').onclick=login;$('lu').onkeydown=e=>{if(e.key=='Enter')$('lp').focus()};$('lp').onkeydown=e=>{if(e.key=='Enter')login()};
+$('eye').onclick=()=>{const p=$('lp'),s=p.type=='password';p.type=s?'text':'password';$('eye').textContent=s?'Sembunyi':'Lihat';p.focus()};
+$('md').onclick=e=>{if(e.target.id=='md')closeM()};
+document.onkeydown=e=>{if(e.key=='Escape')closeM()};
+// Login tidak lagi diingat: setiap link dibuka selalu mulai dari halaman login.
+// Baris di bawah menghapus sisa login lama (versi sebelumnya) yang masih tersimpan di perangkat.
+try{localStorage.removeItem('ma');localStorage.removeItem('mad')}catch(e){}
+</script>
+
+<!-- ===== REVISI MAQOMIN AMIN: tempel SATU blok ini di index.html, tepat setelah </script> terakhir dan sebelum </body> ===== -->
+<style>
+.sheet.full .ph{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;align-items:center;gap:16px;padding:56px 24px;overflow-y:auto}
+.sheet.full .ph>:first-child{margin-top:auto}.sheet.full .ph>:last-child{margin-bottom:auto}
+.sheet.full .ph>img,.sheet.full .ph>.ava.big{flex:none;width:min(clamp(200px,58vw,320px),100%);height:auto;aspect-ratio:4/5;border-radius:20px;border:1px solid var(--ln);box-shadow:0 14px 40px #0008;object-fit:cover}
+.sheet.full .pk{position:static;padding:0;background:none}
+
+@media(max-width:640px){.sheet.full{display:block}.sheet.full .ph{position:relative;height:auto;padding:60px 20px 12px;overflow:visible}.sheet.full .dt{padding:24px 20px}}
+
+@media(max-width:800px){header{flex-wrap:wrap;padding:12px 16px;gap:10px}.sw{order:3;flex-basis:100%;max-width:none}.me{margin-left:auto}.me>div:first-child{display:none}header>.btn{padding:9px 14px;flex:none}main{padding:18px 16px}.g2{grid-template-columns:1fr}.box{padding:28px 22px}}
+
+/* Sesuaikan foto santri (geser + zoom supaya wajah pas) */
+.cr{position:fixed;inset:0;z-index:70;background:#000000d9;display:flex;padding:16px;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.cr-b{margin:auto;width:100%;max-width:400px;background:var(--card);border:1px solid var(--ln);border-radius:24px;padding:22px;animation:up .15s ease-out}
+.cr-b h3{font-size:20px;letter-spacing:-.4px}
+.cr-st{position:relative;width:min(100%,300px,max(170px,calc((100vh - 400px)*.8)));aspect-ratio:4/5;margin:16px auto 0;border-radius:18px;overflow:hidden;background:var(--bg2);box-shadow:0 0 0 1px var(--ln);touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none}
+.cr-st:active{cursor:grabbing}
+.cr-st:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.cr-st img{position:absolute;left:0;top:0;max-width:none;transform-origin:0 0;pointer-events:none;-webkit-user-drag:none}
+.cr-g{position:absolute;left:50%;top:45%;width:58%;aspect-ratio:3/4;transform:translate(-50%,-50%);border-radius:50%;border:2px dashed var(--gold);box-shadow:0 0 0 999px #00000066;pointer-events:none}
+.cr-z{display:flex;align-items:center;gap:10px;margin-top:16px}
+.cr-z input{flex:1;min-width:0;accent-color:var(--g2)}
+.cr-z .btn{padding:6px 0;width:42px;font-size:20px;line-height:1.2}
+.cr-a{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.cr-a .btn{flex:1 1 130px;padding:9px 12px;font-size:13px}
+</style>
+
+<div id="cr" class="cr hide" role="dialog" aria-modal="true" aria-label="Sesuaikan foto santri"><div class="cr-b">
+  <h3>Sesuaikan foto</h3>
+  <p class="mu" style="margin-top:4px;font-size:13px;line-height:1.5">Geser foto dan atur zoom sampai seluruh wajah santri berada di dalam lingkaran.</p>
+  <div class="cr-st" id="cr_st" tabindex="0" aria-label="Area foto: geser untuk memindahkan"><img id="cr_im" alt=""><div class="cr-g"></div></div>
+  <div class="cr-z"><button type="button" class="btn o" id="cr_m" aria-label="Perkecil">−</button><input id="cr_r" type="range" min="0" max="100" step="1" aria-label="Zoom foto"><button type="button" class="btn o" id="cr_p" aria-label="Perbesar">+</button></div>
+  <div class="cr-a"><button type="button" class="btn o" id="cr_f">Pas ke wajah</button><button type="button" class="btn o" id="cr_w">Tampilkan utuh</button></div>
+  <div class="acts"><button type="button" class="btn o" id="cr_x">Batal</button><button type="button" class="btn" id="cr_ok">Gunakan foto</button></div>
+</div></div>
+
+<script>
+// Pilih foto -> jendela "Sesuaikan foto" (geser + zoom supaya seluruh wajah masuk bingkai 4:5)
+function pick(i){const f=i.files[0];i.value='';if(!f)return;
+  crOpen(f,d=>{const p=$('pv');if(!p)return;foto=d;p.innerHTML=`<img src="${d}" alt="">`})}
+const CR={u:'',iw:0,ih:0,fw:0,fh:0,s:1,lo:1,hi:4,x:0,y:0,P:new Map(),pd:1,ps:1,cb:null,n:0,on:false},CR_W=280,CR_H=350,CR_LIM=45000;
+function crPut(){
+  const dw=CR.iw*CR.s,dh=CR.ih*CR.s;
+  CR.x=Math.min(Math.max(CR.x,Math.min(0,CR.fw-dw)),Math.max(0,CR.fw-dw));
+  CR.y=Math.min(Math.max(CR.y,Math.min(0,CR.fh-dh)),Math.max(0,CR.fh-dh));
+  $('cr_im').style.transform=`translate(${CR.x}px,${CR.y}px) scale(${CR.s})`;
+  $('cr_r').value=Math.round(100*Math.log(CR.s/CR.lo)/Math.log(CR.hi/CR.lo))}
+function crSize(){
+  const r=$('cr_st').getBoundingClientRect(),k=CR.fw?r.width/CR.fw:1;
+  CR.fw=r.width;CR.fh=r.height;
+  CR.lo=Math.min(CR.fw/CR.iw,CR.fh/CR.ih);CR.hi=Math.max(CR.fw/CR.iw,CR.fh/CR.ih)*4;
+  CR.s*=k;CR.x*=k;CR.y*=k}
+function crZoom(s,px,py){
+  s=Math.min(CR.hi,Math.max(CR.lo,s));
+  const ix=(px-CR.x)/CR.s,iy=(py-CR.y)/CR.s;
+  CR.s=s;CR.x=px-ix*s;CR.y=py-iy*s;crPut()}
+function crDef(){   // isi bingkai, sedikit condong ke atas (wajah biasanya di bagian atas foto)
+  const s=Math.max(CR.fw/CR.iw,CR.fh/CR.ih);
+  CR.s=s;CR.x=(CR.fw-CR.iw*s)/2;CR.y=-(CR.ih*s-CR.fh)*.25;crPut()}
+function crWhole(){CR.s=CR.lo;CR.x=(CR.fw-CR.iw*CR.s)/2;CR.y=(CR.fh-CR.ih*CR.s)/2;crPut()}
+// Deteksi wajah memakai fitur bawaan browser bila ada; kalau tidak ada, atur manual dengan geser + zoom
+async function crFace(auto){
+  const n=CR.n;
+  if(!('FaceDetector' in window)){if(!auto){crDef();toast('Browser ini belum mendukung deteksi wajah. Geser dan zoom foto sampai wajah masuk lingkaran.')}return}
+  try{
+    const r=await new window.FaceDetector({fastMode:false,maxDetectedFaces:5}).detect($('cr_im'));
+    if(n!=CR.n)return;
+    if(!r.length){if(!auto)toast('Wajah tidak terdeteksi. Atur manual sampai wajah masuk lingkaran.',1);return}
+    const b=r.reduce((a,c)=>c.boundingBox.width>a.boundingBox.width?c:a).boundingBox;
+    CR.s=Math.min(CR.hi,Math.max(CR.lo,CR.fw*.42/b.width));
+    CR.x=CR.fw/2-(b.x+b.width/2)*CR.s;CR.y=CR.fh*.46-(b.y+b.height/2)*CR.s;crPut()}
+  catch(e){if(n==CR.n&&!auto)toast('Deteksi wajah gagal. Atur manual sampai wajah masuk lingkaran.',1)}}
+function crOpen(f,cb){
+  const im=$('cr_im'),n=++CR.n;
+  CR.cb=cb;CR.fw=0;CR.P.clear();CR.on=true;CR.u=URL.createObjectURL(f);
+  im.style.visibility='hidden';
+  im.onerror=()=>{if(n!=CR.n)return;crClose();toast('Foto tidak bisa diproses',1)};
+  im.onload=()=>{if(n!=CR.n)return;
+    CR.iw=im.naturalWidth;CR.ih=im.naturalHeight;
+    if(!CR.iw||!CR.ih)return im.onerror();
+    im.style.width=CR.iw+'px';im.style.height=CR.ih+'px';
+    crSize();crDef();im.style.visibility='';
+    if('FaceDetector' in window)crFace(true)};
+  $('cr').classList.remove('hide');im.src=CR.u}
+function crClose(){
+  CR.n++;CR.on=false;CR.cb=null;CR.P.clear();
+  $('cr').classList.add('hide');$('cr_im').removeAttribute('src');
+  if(CR.u){URL.revokeObjectURL(CR.u);CR.u=''}}
+// Hasil: JPEG 280x350 (maks. 45.000 karakter agar muat di sheet); kualitas diturunkan otomatis bila kebesaran
+function crUse(){
+  if(!CR.iw)return;
+  const im=$('cr_im');let q=.78,k=1,out='';
+  for(let t=0;t<7&&!out;t++){
+    const c=document.createElement('canvas'),W=Math.round(CR_W*k),H=Math.round(CR_H*k),g=c.getContext('2d');
+    c.width=W;c.height=H;g.fillStyle='#0e1512';g.fillRect(0,0,W,H);g.imageSmoothingQuality='high';
+    g.drawImage(im,CR.x*W/CR.fw,CR.y*H/CR.fh,CR.iw*CR.s*W/CR.fw,CR.ih*CR.s*H/CR.fh);
+    const o=c.toDataURL('image/jpeg',q);
+    if(o.length<=CR_LIM)out=o;else{q=Math.max(.4,q-.08);k*=.9}}
+  if(!out)return toast('Foto terlalu besar, coba foto lain',1);
+  const cb=CR.cb;crClose();cb(out)}
+{const st=$('cr_st'),dist=()=>{const [a,b]=[...CR.P.values()];return Math.hypot(a.x-b.x,a.y-b.y)||1};
+  st.onpointerdown=e=>{if(!CR.on)return;try{st.setPointerCapture(e.pointerId)}catch(x){}
+    CR.P.set(e.pointerId,{x:e.clientX,y:e.clientY});if(CR.P.size==2){CR.pd=dist();CR.ps=CR.s}};
+  st.onpointermove=e=>{const p=CR.P.get(e.pointerId);if(!p)return;
+    if(CR.P.size==1){CR.x+=e.clientX-p.x;CR.y+=e.clientY-p.y;p.x=e.clientX;p.y=e.clientY;crPut()}
+    else if(CR.P.size==2){p.x=e.clientX;p.y=e.clientY;const [a,b]=[...CR.P.values()],r=st.getBoundingClientRect();
+      crZoom(CR.ps*dist()/CR.pd,(a.x+b.x)/2-r.left,(a.y+b.y)/2-r.top)}};
+  st.onpointerup=st.onpointercancel=e=>{CR.P.delete(e.pointerId)};
+  st.onwheel=e=>{e.preventDefault();const r=st.getBoundingClientRect();crZoom(CR.s*Math.exp(-e.deltaY*.0015),e.clientX-r.left,e.clientY-r.top)};
+  st.onkeydown=e=>{const m={ArrowLeft:[-12,0],ArrowRight:[12,0],ArrowUp:[0,-12],ArrowDown:[0,12]}[e.key];
+    if(m){e.preventDefault();CR.x+=m[0];CR.y+=m[1];crPut()}
+    else if(e.key=='+'||e.key=='='){e.preventDefault();crZoom(CR.s*1.1,CR.fw/2,CR.fh/2)}
+    else if(e.key=='-'){e.preventDefault();crZoom(CR.s/1.1,CR.fw/2,CR.fh/2)}}}
+$('cr_r').oninput=()=>crZoom(CR.lo*Math.pow(CR.hi/CR.lo,$('cr_r').value/100),CR.fw/2,CR.fh/2);
+$('cr_p').onclick=()=>crZoom(CR.s*1.15,CR.fw/2,CR.fh/2);
+$('cr_m').onclick=()=>crZoom(CR.s/1.15,CR.fw/2,CR.fh/2);
+$('cr_w').onclick=crWhole;$('cr_f').onclick=()=>crFace(false);
+$('cr_x').onclick=crClose;$('cr_ok').onclick=crUse;
+window.addEventListener('resize',()=>{if(CR.on&&CR.iw){crSize();crPut()}});
+
+document.onkeydown=e=>{if(e.key=='Escape'){if(CR.on)return crClose();closeM()}};
+</script>
+
+<!-- ===== REVISI MAQOMIN AMIN (Mainan Login v3: Tembak Alien): MENGGANTIKAN blok "Mainan Login v2" ===== -->
+<!-- Cara: HAPUS blok "Mainan Login v2" lama (dari komentar-nya sampai </script> miliknya), lalu tempel blok ini di tempat yang sama. -->
+<!-- Jangan hapus blok "Link Sosmed". Code.gs dan Sosmed.gs TIDAK perlu diubah. -->
+<style>
+#login .box{z-index:2;touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab;will-change:transform}
+#login .box.dr{cursor:grabbing}
+#login .box input,#login .box button,#login .box label{touch-action:manipulation;user-select:text;-webkit-user-select:text;cursor:auto}
+#login .box button{cursor:pointer}
+#gcv{position:fixed;inset:0;width:100%;height:100%;z-index:3;touch-action:none;cursor:none;background:#020609b3}
+#toy{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:5;display:flex;flex-direction:column;align-items:center;gap:8px;width:max-content;max-width:calc(100% - 24px)}
+#toy small{text-align:center;background:#0a110ecc;padding:5px 14px;border-radius:99px;line-height:1.4}
+#toy small:empty{display:none}
+#toy .row{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:8px;padding:8px;background:#0a110ee6;border:1px solid #ffffff1c;border-radius:20px;box-shadow:0 10px 30px #000a}
+#toy .btn{padding:9px 14px;font-size:13px}
+#toy .st{display:flex;flex-direction:column;align-items:center;min-width:62px;padding:0 10px}
+#toy .st b{font-size:20px;line-height:1.1;color:var(--gold);font-variant-numeric:tabular-nums}
+#toy .st span{font-size:11px;color:var(--mu)}
+</style>
+
+<script>
+(()=>{
+const g=id=>document.getElementById(id),L=g('login'),B=L.querySelector('.box'),
+  rnd=(a,b)=>a+Math.random()*(b-a),cl=(v,a,b)=>Math.min(b,Math.max(a,v)),
+  DEF='Tarik lalu lempar kotak login-nya, atau coba game Tembak Alien! 🚀';
+
+// ---------- Kanvas game + panel bawah ----------
+const cv=document.createElement('canvas'),ctx=cv.getContext('2d');cv.id='gcv';cv.className='hide';L.appendChild(cv);
+const hud=document.createElement('div');hud.id='toy';
+hud.innerHTML=`<small id="ty_h"></small>
+<div class="row" id="ty_i"><button type="button" class="btn o" data-a="throw">🎲 Lempar Kotak</button><button type="button" class="btn o" data-a="reset">↺ Reset</button><button type="button" class="btn" data-a="play">🚀 Tembak Alien</button></div>
+<div class="row hide" id="ty_g"><div class="st"><b id="ty_s">0</b><span>Skor</span></div><div class="st"><b id="ty_l">❤️❤️❤️</b><span>Nyawa</span></div><div class="st"><b id="ty_b">0</b><span>Rekor</span></div><button type="button" class="btn d" data-a="stop">Selesai</button></div>`;
+L.appendChild(hud);
+const hint=t=>{g('ty_h').textContent=t};hint(DEF);
+
+// ---------- Kotak login: tarik + lempar (animasi hanya jalan saat kotak bergerak) ----------
+const T={x:0,y:0,vx:0,vy:0,drag:false,home:false,run:false,last:0,lt:0,mx:0,my:0,px:0,py:0};
+function bd(){
+  const w=B.offsetWidth,h=B.offsetHeight,ox=B.offsetLeft,oy=B.offsetTop,W=L.clientWidth,H=L.clientHeight;
+  let a=-ox,b=W-ox-w,c=-oy,d=H-oy-h;
+  if(b<a)a=b=(a+b)/2;if(d<c)c=d=(c+d)/2;
+  return{a,b,c,d}}
+function step(t){
+  const dt=Math.min(.04,(t-T.last)/1000||0);T.last=t;
+  if(!T.drag){
+    const k=bd();
+    if(T.home){const e=Math.min(1,dt*10);T.x-=T.x*e;T.y-=T.y*e;if(Math.abs(T.x)+Math.abs(T.y)<.5){T.x=T.y=0;T.home=false}}
+    else if(T.vx||T.vy){
+      T.x+=T.vx*dt;T.y+=T.vy*dt;
+      if(T.x<k.a){T.x=k.a;T.vx=Math.abs(T.vx)}else if(T.x>k.b){T.x=k.b;T.vx=-Math.abs(T.vx)}
+      if(T.y<k.c){T.y=k.c;T.vy=Math.abs(T.vy)}else if(T.y>k.d){T.y=k.d;T.vy=-Math.abs(T.vy)}
+      const f=Math.exp(-.3*dt);T.vx*=f;T.vy*=f;if(Math.hypot(T.vx,T.vy)<12)T.vx=T.vy=0}}
+  B.style.transform=`translate3d(${T.x.toFixed(1)}px,${T.y.toFixed(1)}px,0)`;
+  if(T.drag||T.home||T.vx||T.vy)requestAnimationFrame(step);
+  else{T.run=false;if(!G.on)L.style.overflowY=''}}
+function kick(){if(!T.run){T.run=true;T.last=performance.now();L.style.overflowY='hidden';requestAnimationFrame(step)}}
+function launch(){
+  if(B.contains(document.activeElement))document.activeElement.blur();
+  const a=rnd(0,6.28),s=rnd(520,820);T.vx=Math.cos(a)*s;T.vy=Math.sin(a)*s;T.home=false;kick()}
+function goHome(){T.vx=T.vy=0;T.home=true;kick()}
+B.addEventListener('pointerdown',e=>{
+  if(e.button>0||G.on||e.target.closest('input,button,label,select,textarea'))return;
+  T.drag=true;T.home=false;T.vx=T.vy=0;T.mx=T.my=0;T.px=e.clientX-T.x;T.py=e.clientY-T.y;T.lt=performance.now();
+  B.classList.add('dr');try{B.setPointerCapture(e.pointerId)}catch(x){}kick()});
+B.addEventListener('pointermove',e=>{
+  if(!T.drag)return;
+  const k=bd(),n=performance.now(),dt=Math.max(1,n-T.lt)/1000,nx=cl(e.clientX-T.px,k.a,k.b),ny=cl(e.clientY-T.py,k.c,k.d);
+  T.mx=T.mx*.6+(nx-T.x)/dt*.4;T.my=T.my*.6+(ny-T.y)/dt*.4;T.x=nx;T.y=ny;T.lt=n});
+const up=()=>{
+  if(!T.drag)return;
+  T.drag=false;B.classList.remove('dr');
+  if(performance.now()-T.lt>100)T.mx=T.my=0;
+  const sp=Math.hypot(T.mx,T.my),m=sp>2200?2200/sp:1;T.vx=T.mx*m;T.vy=T.my*m;
+  if(sp<30)T.vx=T.vy=0;kick()};
+B.addEventListener('pointerup',up);B.addEventListener('pointercancel',up);
+B.addEventListener('focusin',e=>{if(e.target.matches('input'))goHome()});
+
+// ---------- Game "Tembak Alien" ----------
+// Ringan: kanvas 2D tanpa library / gambar; sprite digambar sekali lalu ditempel; animasi HANYA jalan saat game dimainkan.
+// Gerak: geser jari / mouse (pesawat menembak otomatis). Keyboard: panah atau WASD. Nyawa 3.
+// Alien: 👽 +10 | 🛸 cepat +20 | 👾 besar, 3 tembakan +50 | ⭐ (kadang jatuh) = tembakan ganda 7 detik. Makin lama makin cepat.
+// Mau ubah? Nyawa = G.hp di play(), daftar alien = KIND, gelar = RANK.
+//   KIND: [emoji, ukuran, nyawa, poin, kecepatan, goyang, peluang%]
+const KIND=[['👽',36,1,10,95,22,55],['🛸',34,1,20,175,48,30],['👾',58,3,50,55,14,15]],
+  RANK=[[0,'Kadet Pemula 🧑‍🚀'],[200,'Pilot Tempur 🚀'],[600,'Penjaga Galaksi 🛡️'],[1200,'Komandan Bintang 🌟']],
+  KM={ArrowLeft:'l',a:'l',A:'l',ArrowRight:'r',d:'r',D:'r',ArrowUp:'u',w:'u',W:'u',ArrowDown:'d',s:'d',S:'d'},
+  G={on:false,s:0,hp:3,best:0,t:0,last:0,fire:0,spawn:0,pu:0,inv:0,en:[],bl:[],pt:[],it:[],st:[]},
+  P={x:0,y:0,tx:0,ty:0},K={};
+let W=0,H=0,dpr=1,SP=null,raf=0;
+try{G.best=+localStorage.getItem('ma_best3')||0}catch(e){}
+
+function mk(w,h,fn){const c=document.createElement('canvas');c.width=Math.ceil(w*dpr);c.height=Math.ceil(h*dpr);const x=c.getContext('2d');x.scale(dpr,dpr);fn(x);return c}
+function emo(e,s){return mk(s,s,x=>{x.font=(s*.82|0)+'px system-ui,"Apple Color Emoji","Segoe UI Emoji",sans-serif';x.textAlign='center';x.textBaseline='middle';x.fillText(e,s/2,s/2+s*.05)})}
+function sprites(){SP={
+  ship:mk(44,52,x=>{
+    x.fillStyle='#1fb08e';x.beginPath();x.moveTo(12,30);x.lineTo(2,46);x.lineTo(16,40);x.closePath();x.fill();
+    x.beginPath();x.moveTo(32,30);x.lineTo(42,46);x.lineTo(28,40);x.closePath();x.fill();
+    x.fillStyle='#e6eee9';x.beginPath();x.moveTo(22,2);x.lineTo(33,36);x.lineTo(22,30);x.lineTo(11,36);x.closePath();x.fill();
+    x.fillStyle='#d9a93f';x.beginPath();x.ellipse(22,20,3.5,6,0,0,7);x.fill()}),
+  en:KIND.map(k=>emo(k[0],k[1])),star:emo('⭐',30)}}
+function size(){
+  W=innerWidth;H=innerHeight;const d=Math.min(devicePixelRatio||1,1.5);   // maks 1.5x agar tetap ringan di HP
+  cv.width=Math.round(W*d);cv.height=Math.round(H*d);
+  if(d!=dpr||!SP){dpr=d;sprites()}ctx.setTransform(dpr,0,0,dpr,0,0)}
+const stat=()=>{g('ty_s').textContent=G.s;g('ty_l').textContent='❤️'.repeat(Math.max(0,G.hp))||'💀'};
+function boom(x,y,n,c){for(let i=0;i<n&&G.pt.length<90;i++)G.pt.push({x,y,vx:rnd(-170,170),vy:rnd(-170,170),l:rnd(.3,.6),c})}
+function addEn(){
+  let r=rnd(0,100),k=0;for(;k<KIND.length-1;k++){if((r-=KIND[k][6])<0)break}
+  const q=KIND[k],x=rnd(q[1]/2+30,W-q[1]/2-30);
+  G.en.push({k,x,x0:x,y:-q[1],w:q[1],h:q[1],hp:q[2],pt:q[3],v:q[4],am:q[5],fq:rnd(1.5,3),ph:rnd(0,6.28),fl:0})}
+function kill(a){a.dead=1;G.s+=a.pt;boom(a.x,a.y,a.w>40?18:10,'#ffb347');if(Math.random()<.08)G.it.push({x:a.x,y:a.y});stat()}
+function hurt(){if(G.inv>0)return;G.hp--;G.inv=1.4;boom(P.x,P.y,16,'#ff8a80');stat();if(G.hp<=0)stop(true)}
+
+function update(dt){
+  const lv=1+Math.floor(G.t/12),sp=1+lv*.07,kx=(K.r?1:0)-(K.l?1:0),ky=(K.d?1:0)-(K.u?1:0);
+  if(kx||ky){P.tx=cl(P.tx+kx*460*dt,20,W-20);P.ty=cl(P.ty+ky*460*dt,H*.35,H-110)}
+  const e=Math.min(1,dt*14);P.x+=(P.tx-P.x)*e;P.y+=(P.ty-P.y)*e;
+  G.pu=Math.max(0,G.pu-dt);G.inv=Math.max(0,G.inv-dt);
+  if((G.fire-=dt)<=0){G.fire=G.pu?.11:.18;(G.pu?[-14,0,14]:[0]).forEach(o=>G.bl.push({x:P.x+o,y:P.y-26,vx:o*6.4}))}
+  G.bl.forEach(b=>{b.y-=640*dt;b.x+=b.vx*dt});
+  if((G.spawn-=dt)<=0){G.spawn=Math.max(.32,1.05-lv*.07)*rnd(.7,1.2);if(G.en.length<14)addEn()}
+  G.en.forEach(a=>{
+    a.y+=a.v*sp*dt;a.x=cl(a.x0+Math.sin(a.ph+G.t*a.fq)*a.am,a.w/2,W-a.w/2);a.fl=Math.max(0,a.fl-dt);
+    G.bl.forEach(b=>{if(a.dead||b.y<-50)return;
+      if(Math.abs(b.x-a.x)<a.w/2&&Math.abs(b.y-a.y)<a.h/2){b.y=-99;a.fl=.08;if(--a.hp<=0)kill(a)}});
+    if(a.dead)return;
+    if(Math.abs(a.x-P.x)<a.w/2+14&&Math.abs(a.y-P.y)<a.h/2+18){a.dead=1;boom(a.x,a.y,10,'#ffb347');hurt()}
+    else if(a.y>H+30)a.dead=1});
+  G.bl=G.bl.filter(b=>b.y>-20);G.en=G.en.filter(a=>!a.dead);
+  G.it.forEach(i=>{i.y+=130*dt;
+    if(!i.got&&Math.abs(i.x-P.x)<28&&Math.abs(i.y-P.y)<34){i.got=1;G.pu=7;G.s+=25;boom(i.x,i.y,8,'#ffd36b');stat();hint('Tembakan ganda aktif 7 detik! ⭐')}});
+  G.it=G.it.filter(i=>!i.got&&i.y<H+30);
+  G.pt.forEach(p=>{p.x+=p.vx*dt;p.y+=p.vy*dt;p.l-=dt});G.pt=G.pt.filter(p=>p.l>0);
+  G.st.forEach(s=>{s.y+=s.v*dt;if(s.y>H){s.y=0;s.x=rnd(0,W)}})}
+
+function draw(){
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle='#fff';ctx.globalAlpha=.55;G.st.forEach(s=>ctx.fillRect(s.x,s.y,s.z,s.z));ctx.globalAlpha=1;
+  ctx.fillStyle='#ffd36b';ctx.beginPath();G.bl.forEach(b=>ctx.rect(b.x-1.5,b.y-6,3,12));ctx.fill();   // semua peluru 1x gambar
+  G.en.forEach(a=>{if(a.fl>0)ctx.globalAlpha=.45;ctx.drawImage(SP.en[a.k],a.x-a.w/2,a.y-a.h/2,a.w,a.h);ctx.globalAlpha=1});
+  G.it.forEach(i=>ctx.drawImage(SP.star,i.x-15,i.y-15,30,30));
+  if(!(G.inv>0&&Math.floor(G.t*12)%2)){
+    ctx.drawImage(SP.ship,P.x-22,P.y-26,44,52);
+    ctx.fillStyle=G.pu?'#ffd36b':'#7fe0c4';const f=8+Math.random()*8;
+    ctx.beginPath();ctx.moveTo(P.x-6,P.y+26);ctx.lineTo(P.x,P.y+26+f);ctx.lineTo(P.x+6,P.y+26);ctx.fill()}
+  G.pt.forEach(p=>{ctx.globalAlpha=Math.min(1,p.l*2.5);ctx.fillStyle=p.c;ctx.fillRect(p.x-2,p.y-2,4,4)});ctx.globalAlpha=1}
+
+function loop(t){
+  const dt=Math.min(.05,(t-G.last)/1000||0);G.last=t;G.t+=dt;
+  update(dt);if(!G.on)return;
+  draw();raf=requestAnimationFrame(loop)}
+function play(){
+  if(G.on)return;
+  if(document.activeElement&&document.activeElement.blur)document.activeElement.blur();
+  T.drag=false;B.classList.remove('dr');goHome();
+  size();cv.classList.remove('hide');L.style.overflowY='hidden';K.l=K.r=K.u=K.d=0;
+  Object.assign(G,{on:true,s:0,hp:3,t:0,fire:0,spawn:.4,pu:0,inv:0,en:[],bl:[],pt:[],it:[],
+    st:Array.from({length:40},()=>({x:rnd(0,W),y:rnd(0,H),z:rnd(1,2.2),v:rnd(30,110)}))});
+  P.x=P.tx=W/2;P.y=P.ty=H-150;
+  g('ty_b').textContent=G.best;stat();
+  g('ty_i').classList.add('hide');g('ty_g').classList.remove('hide');
+  hint('Geser jari / mouse untuk bergerak, pesawat menembak otomatis. Keyboard: panah atau WASD.');
+  G.last=performance.now();raf=requestAnimationFrame(loop)}
+function stop(done){
+  if(!G.on)return;
+  G.on=false;cancelAnimationFrame(raf);cv.classList.add('hide');
+  g('ty_g').classList.add('hide');g('ty_i').classList.remove('hide');
+  if(!T.run)L.style.overflowY='';
+  if(!done)return hint(DEF);
+  const nb=G.s>G.best,rk=RANK.filter(r=>G.s>=r[0]).pop()[1];
+  if(nb){G.best=G.s;try{localStorage.setItem('ma_best3',G.best)}catch(e){}}
+  hint('Game over! Skor '+G.s+' · Gelar: '+rk+(nb?' · Rekor baru 🎉':''))}
+
+// ---------- Kontrol ----------
+const mv=e=>{P.tx=cl(e.clientX,20,W-20);P.ty=cl(e.clientY-(e.pointerType=='touch'?70:0),H*.35,H-110)};   // di HP, pesawat di atas jari
+cv.addEventListener('pointerdown',e=>{try{cv.setPointerCapture(e.pointerId)}catch(x){}mv(e)});
+cv.addEventListener('pointermove',mv);
+addEventListener('keydown',e=>{if(!G.on)return;const k=KM[e.key];if(k){K[k]=1;e.preventDefault()}else if(e.key=='Escape')stop(false)});
+addEventListener('keyup',e=>{const k=KM[e.key];if(k)K[k]=0});
+addEventListener('resize',()=>{if(G.on)size()});
+hud.addEventListener('click',e=>{
+  const b=e.target.closest('button[data-a]');if(!b)return;
+  const a=b.dataset.a;
+  if(a=='throw')launch();else if(a=='reset')goHome();else if(a=='play')play();else if(a=='stop')stop(false)});
+
+// Setelah login berhasil (halaman login disembunyikan): hentikan game dan kembalikan kotak
+new MutationObserver(()=>{
+  if(!L.classList.contains('hide'))return;
+  stop(false);T.x=T.y=T.vx=T.vy=0;T.home=false;B.style.transform='';L.style.overflowY=''
+}).observe(L,{attributes:true,attributeFilter:['class']});
+})();
+</script>
+
+<!-- ===== REVISI MAQOMIN AMIN (Link Sosmed): tempel SATU blok ini di index.html, tepat setelah </script> terakhir dan sebelum </body> ===== -->
+<!-- Tidak ada bagian lain di index.html yang perlu diubah. Butuh file Sosmed.gs di Apps Script. -->
+<style>
+.spn-box{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:8px 10px;padding:8px 10px 8px 16px;background:#0a110ee6;border:1px solid #ffffff1c;border-radius:20px}
+#spn{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:5;width:max-content;max-width:calc(100% - 24px);box-shadow:0 10px 30px #000a}
+#so_pv{width:max-content;max-width:100%;margin-top:14px}
+.spn-t{font-size:13px;font-weight:700;color:var(--tx)}
+.spn-b{display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:99px;font-size:13px;font-weight:700;color:#fff;text-decoration:none;background:var(--bg2);border:1.5px solid var(--ln);transition:background .15s,transform .15s}
+.spn-b:hover{transform:translateY(-1px)}
+.spn-b:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.spn-b svg{width:17px;height:17px;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.spn-b.tt{border-color:#25f4ee66}.spn-b.tt:hover{background:#25f4ee26}
+.spn-b.ig{border-color:#e1306c77}.spn-b.ig:hover{background:#e1306c33}
+.spn-b.yt{border-color:#ff000077}.spn-b.yt:hover{background:#ff000033}
+</style>
+
+<script>
+(()=>{
+const P=[
+  ['tt','TikTok','<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>'],
+  ['ig','Instagram','<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><path d="M17.5 6.5h.01"/></svg>'],
+  ['yt','YouTube','<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>']
+],
+SOS={d:{},n:0},
+// Panggil fungsi publik di Sosmed.gs (di luar api() milik Code.gs)
+run=(fn,...a)=>new Promise((ok,no)=>{
+  const r=google.script.run.withSuccessHandler(x=>x&&x.ok?ok(x):no((x&&x.err)||'Terjadi kesalahan')).withFailureHandler(e=>no((e&&e.message)||'Gagal terhubung'));
+  if(typeof r[fn]!='function')return no('Fungsi '+fn+' belum ada di server. Tambahkan Sosmed.gs lalu Deploy versi baru');
+  r[fn](...a)}),
+// Isi banner: hanya platform yang linknya terisi dan berawalan https://
+html=d=>{const it=P.filter(p=>/^https:\/\//.test(d[p[0]]||''));
+  return it.length?`<span class="spn-t">${esc(d.tx||'Ikuti akun sosial media kami')}</span>`
+    +it.map(p=>`<a class="spn-b ${p[0]}" href="${esc(d[p[0]])}" target="_blank" rel="noopener noreferrer">${p[2]}<span>${p[1]}</span></a>`).join(''):''};
+
+// ---- Elemen baru: banner login, tab menu, halaman admin ----
+$('login').insertAdjacentHTML('beforeend','<div id="spn" class="spn-box hide" role="complementary" aria-label="Ikuti sosial media kami"></div>');
+$('tabs').insertAdjacentHTML('beforeend','<button data-v="sos" data-r="super">Sosial Media</button>');
+$('tpl').insertAdjacentHTML('afterend',`<main id="sos" class="hide">
+  <div class="panel">
+    <h3>Link sosial media</h3>
+    <p class="mu" style="margin-top:6px;font-size:13px;line-height:1.5">Tampil sebagai ajakan mengikuti akun di bagian atas halaman login. Isi link lengkap atau cukup username (contoh: @maqominamin). Kosongkan kolom untuk menyembunyikan tombolnya.</p>
+    <label for="so_tt">TikTok</label><input id="so_tt" class="in" inputmode="url" maxlength="300" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="https://www.tiktok.com/@username">
+    <label for="so_ig">Instagram</label><input id="so_ig" class="in" inputmode="url" maxlength="300" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="https://www.instagram.com/username">
+    <label for="so_yt">YouTube</label><input id="so_yt" class="in" inputmode="url" maxlength="300" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="https://www.youtube.com/@channel">
+    <label for="so_tx">Teks ajakan (opsional)</label><input id="so_tx" class="in" maxlength="80" autocomplete="off" placeholder="Ikuti akun sosial media kami">
+    <p class="mu" id="so_h" style="margin-top:14px;font-size:13px;min-height:1.2em"></p>
+    <div class="acts"><button type="button" class="btn" id="so_s">Simpan link</button></div>
+  </div>
+  <div class="panel">
+    <h3>Pratinjau halaman login</h3>
+    <p class="mu" style="margin-top:6px;font-size:13px">Sesuai data yang sudah tersimpan. Tombol bisa diklik untuk mengecek link.</p>
+    <div class="spn-box" id="so_pv"></div>
+  </div>
+</main>`);
+
+// ---- Tampilan ----
+function draw(){
+  const h=html(SOS.d);
+  $('spn').innerHTML=h;$('spn').classList.toggle('hide',!h);
+  $('so_pv').innerHTML=h||'<span class="mu" style="font-size:13px">Belum ada link tersimpan, banner tidak tampil di halaman login.</span>'}
+function fill(){
+  ['tt','ig','yt','tx'].forEach(k=>{$('so_'+k).value=SOS.d[k]||''});draw()}
+function load(){
+  const n=++SOS.n;$('so_h').textContent='Memuat data tersimpan...';
+  run('sosGet').then(r=>{if(n!=SOS.n)return;SOS.d=r.d||{};fill();$('so_h').textContent=''},
+    e=>{if(n==SOS.n){$('so_h').textContent='';toast(e,1)}})}
+function save(){
+  const b=$('so_s'),d={tt:$('so_tt').value,ig:$('so_ig').value,yt:$('so_yt').value,tx:$('so_tx').value};
+  b.disabled=true;b.textContent='Menyimpan...';
+  run('sosSave',auth,d).then(r=>{SOS.d=r.d||{};fill();toast('Link sosial media tersimpan')},e=>toast(e,1))
+   .then(()=>{b.disabled=false;b.textContent='Simpan link'})}
+$('so_s').onclick=save;
+
+// ---- Sambungkan ke navigasi menu yang sudah ada ----
+{const vis0=vis,setV0=setV;
+  vis=v=>{vis0(v);$('sos').classList.toggle('hide',v!='sos')};
+  setV=v=>{setV0(v);if(v=='sos')load()}}
+
+// ---- Banner di halaman login: ambil link tersimpan (tanpa login) ----
+run('sosGet').then(r=>{SOS.d=r.d||{};draw()},()=>{});
+})();
+</script>
+
+<!-- ===== REVISI MAQOMIN AMIN (Ringkasan Program di Beranda): tempel SATU blok ini di index.html, tepat setelah blok "Link Sosmed" dan sebelum </body> ===== -->
+<!-- Code.gs dan Sosmed.gs TIDAK perlu diubah. Tidak ada bagian lain di index.html yang perlu diubah. -->
+<!-- Super admin : 4 kartu ringkasan (Total, BND, THF, PASCA seluruh kamar) + tiap kotak kamar di denah memuat jumlah BND / THF / PASCA -->
+<!-- Pembina     : hanya 4 kotak (Total, BND, THF, PASCA) untuk kamarnya sendiri -->
+<style>
+#dn .denah-h:not(:first-child){margin-top:28px}
+.bs-g{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
+.bs-c{position:relative;overflow:hidden;background:var(--card);border:1px solid var(--ln);border-radius:var(--r);padding:18px 18px 18px}
+.bs-c::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:var(--c)}
+.bs-c.t{background:var(--c2)}
+.bs-c small{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:14px;font-weight:800;color:var(--tx)}
+.bs-c small em{font-style:normal;font-size:12px;font-weight:700;color:var(--c)}
+.bs-c div{display:flex;align-items:baseline;gap:8px;margin-top:10px}
+.bs-c b{font-size:38px;line-height:1;letter-spacing:-1.5px;font-variant-numeric:tabular-nums}
+.bs-c div span{font-size:13px;font-weight:600;color:var(--mu)}
+.bs-c.z b{color:var(--mu)}
+.bs-bar{display:block;height:5px;margin-top:14px;border-radius:99px;background:var(--bg2);overflow:hidden}
+.bs-bar em{display:block;height:100%;border-radius:99px;background:var(--c)}
+.bs-n{margin-top:12px;font-size:13px;line-height:1.5;color:var(--mu)}
+/* Denah kamar: kotak sedikit lebih lebar agar muat rincian program */
+.denah{grid-template-columns:repeat(auto-fill,minmax(124px,1fr))}
+.bs-m{display:grid;gap:4px;margin:10px 6px 0;padding-top:9px;border-top:1px solid var(--ln);text-align:left}
+.bs-m i{display:flex;align-items:center;font-style:normal;font-size:11px;font-weight:700;color:var(--mu)}
+.bs-m i::before{content:"";width:7px;height:7px;margin-right:6px;border-radius:50%;background:var(--c);flex:none}
+.bs-m i em{margin-left:auto;font-style:normal;font-size:13px;font-variant-numeric:tabular-nums;color:var(--tx)}
+.bs-m i.z{opacity:.45}
+.denah button.on .bs-m{border-top-color:#ffffff40}
+.denah button.on .bs-m i{color:#c8efe2}
+</style>
+
+<script>
+(()=>{
+const PG=['BND','THF','PASCA'],CL=['#5aa9e0','#1fb08e','#d9a93f'],
+  // Hitung santri per program; x = santri yang programnya belum diisi
+  cnt=L=>{const c={n:L.length,x:0,BND:0,THF:0,PASCA:0};
+    L.forEach(s=>{const p=String(s.program||'').trim().toUpperCase();PG.includes(p)?c[p]++:c.x++});return c},
+  // Rincian kecil di dalam kotak kamar
+  mini=c=>`<div class="bs-m">${PG.map((p,i)=>`<i class="${c[p]?'':'z'}" style="--c:${CL[i]}">${p}<em>${c[p]}</em></i>`).join('')}</div>`,
+  // Satu kotak ringkasan (t = kotak Total)
+  card=(l,n,col,t,tot)=>`<div class="bs-c${t?' t':''}${n?'':' z'}" style="--c:${col}"><small>${l}${t?'':`<em>${tot?Math.round(n/tot*100):0}%</em>`}</small><div><b>${nf(n)}</b><span>Santri</span></div>${t?'':`<i class="bs-bar"><em style="width:${tot?n/tot*100:0}%"></em></i>`}</div>`,
+  cards=c=>`<div class="bs-g">${card('Total',c.n,'#e6eee9',1)}${PG.map((p,i)=>card(p,c[p],CL[i],0,c.n)).join('')}</div>`
+    +(c.x?`<p class="bs-n">${c.x} santri belum diisi programnya, jadi belum masuk hitungan BND / THF / PASCA.</p>`:'');
+
+function bsDraw(){
+  if(!me||me.role=='user')return;
+  const c=cnt(S);
+  if(me.role!='super'){$('dn').innerHTML=cards(c);return}   // pembina: 4 kotak untuk kamarnya
+  const g={};S.forEach(x=>(g[x.kamar]||(g[x.kamar]=[])).push(x));
+  const tile=(r,b,l,v,fill)=>`<button data-r="${r}" class="${fill?'fill ':''}${r==room?'on':''}" aria-label="${r=='all'?'Semua kamar':'Kamar '+r}: ${v.n} santri, BND ${v.BND}, THF ${v.THF}, PASCA ${v.PASCA}"><b>${b}</b><span>${l}</span>${mini(v)}</button>`;
+  $('dn').innerHTML=`<div class="denah-h"><h2>Ringkasan program</h2><small>Seluruh kamar</small></div>${cards(c)}`
+    +`<div class="denah-h"><h2>Denah kamar</h2><small>${S.length} santri di ${Object.keys(g).length} kamar</small></div>`
+    +`<div class="denah">${tile('all',c.n,'Semua',c,0)}${rooms.map(r=>{const v=cnt(g[r]||[]);return tile(r,r,v.n+' santri',v,v.n)}).join('')}</div>`}
+
+// Setiap draw() (login, tambah / edit / hapus santri, ganti kamar) otomatis ikut memperbarui angka
+{const d0=draw;draw=()=>{d0();bsDraw()}}
+})();
+</script>
+
+</body></html>
