@@ -333,7 +333,7 @@ main#flt{max-width:1500px}
     <div class="panel">
       <div class="rk-sum" id="rk_h"></div>
       <table class="rk-t"><thead><tr><th>No</th><th>Nama pembina</th><th>Kamar</th><th class="n">Keaktifan di Kamar<small>dari 70%</small></th><th class="n">Keaktifan di Komplek<small>dari 10%</small></th><th class="n">Jama'ah<small>dari 15%</small></th><th class="n">Walisantri<small>dari 5%</small></th><th class="n">Total<small>dari 100%</small></th></tr></thead><tbody id="rk_b"></tbody></table>
-      <p class="mu" style="margin-top:14px;font-size:13px;line-height:1.5">Bobot: Keaktifan di Kamar 70%, Komplek 10%, Jama'ah 15%, Walisantri 5% (total 100%). Jika seluruh catatan Set. Hadir, nilai akhir 70%; jika seluruhnya Izin atau Setengah Rolas, nilai akhir 40%; jika seluruhnya Tidak Hadir atau Bahaya, nilai akhir 15%. Nilai dihitung dari absensi yang sudah tersimpan pada rentang tanggal; yang belum diabsen tidak mengurangi nilai.</p>
+      <p class="mu" style="margin-top:14px;font-size:13px;line-height:1.5">Bobot: Keaktifan di Kamar 70%, Komplek 10%, Jama'ah 15%, Walisantri 5% (total 100%). Jika seluruh catatan Set. Hadir atau Telat, nilai akhir 70%; jika seluruhnya Izin atau Setengah Rolas, nilai akhir 40%; jika seluruhnya Tidak Hadir atau Bahaya, nilai akhir 15%. Nilai dihitung dari absensi yang sudah tersimpan pada rentang tanggal; yang belum diabsen tidak mengurangi nilai.</p>
     </div>
   </main>
 
@@ -719,12 +719,15 @@ const AB_K={"Keaktifan Pembina di Kamar":["Ngubrak-i Subuh","Tahajjud + Ngaji Ka
   "Walisantri":null},
   AB_S=['Aman','Izin','Tidak Hadir'],AB_W=['Aman','Setengah Rolas','Bahaya'],
   AB_SHL='Set. Hadir',AB_SH=['Tahajjud + Ngaji Kamar','Pagi di Kamar - Berangkat'],   // "Set. Hadir" hanya untuk 2 item ini (kategori Keaktifan Pembina di Kamar)
-  stc=s=>s=='Aman'?'s0':(s=='Izin'||s=='Setengah Rolas'||s==AB_SHL)?'s1':'s2',   // warna status: hijau / kuning / merah
+  AB_TLT='Telat',AB_TL=['Ngaji Sore'],   // "Telat" hanya untuk item Ngaji Sore (kategori Keaktifan Pembina di Kamar)
+  stc=s=>s=='Aman'?'s0':(s=='Izin'||s=='Setengah Rolas'||s==AB_SHL||s==AB_TLT)?'s1':'s2',   // warna status: hijau / kuning / merah
   AB={st:{},n:0,mode:'all',p:''},   // mode: 'all' = semua pembina, 'one' = per orang (p = username terpilih)
   HS={rows:[],open:null,q:0,tot:0};
 // Daftar status di dropdown mengikuti kategori + item yang sedang dipilih
-const abSt=()=>{const k=$('ab_k').value;
-  return k=='Walisantri'?AB_W:(k=='Keaktifan Pembina di Kamar'&&AB_SH.includes($('ab_i').value))?AB_S.concat(AB_SHL):AB_S};
+const abSt=()=>{const k=$('ab_k').value,i=$('ab_i').value;
+  return k=='Walisantri'?AB_W
+    :(k=='Keaktifan Pembina di Kamar'&&AB_SH.includes(i))?AB_S.concat(AB_SHL)
+    :(k=='Keaktifan Pembina di Kamar'&&AB_TL.includes(i))?AB_S.concat(AB_TLT):AB_S};
 function abKey(){const k=$('ab_k').value;return{t:$('ab_t').value,k,i:(k=='Walisantri'?$('ab_x').value:$('ab_i').value).trim().replace(/\s+/g,' ')}}
 // Dropdown pilihan mengikuti kategori; Walisantri memakai kolom teks
 function abFill(){
