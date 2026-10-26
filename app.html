@@ -636,7 +636,7 @@ function formSantri(id){
   foto=null;
   const T=(k,l)=>`<label>${l}</label><textarea id="f_${k}" class="in" rows="2">${esc(x[k])}</textarea>`,
         I=(k,l)=>`<label>${l}</label><input id="f_${k}" class="in" value="${esc(x[k])}">`;
-  openM(`<button class="x" onclick="closeM()" aria-label="Tutup">✕</button><div class="ph fp"><div id="pv" class="ava big" data-id="${esc(id||'')}">${old&&PH[id]?`<img src="${PH[id]}" alt="">`:'Foto'}</div><div class="pk"><button type="button" class="btn" onclick="$('ff').click()">Pilih foto</button><small>Otomatis dikecilkan</small><input id="ff" type="file" accept="image/*" hidden onchange="pick(this)"></div></div><div class="dt">
+  openM(`<button class="x" onclick="closeM()" aria-label="Tutup">✕</button><div class="ph fp"><div id="pv" class="ava big" data-id="${esc(id||'')}">${old&&PH[id]?`<img src="${PH[id]}" alt="">`:'Foto'}</div><div class="pk"><button type="button" class="btn" onclick="$('ff').click()">Pilih foto</button><small>Otomatis dikecilkan</small><input id="ff" type="file" accept="image/*,.heic,.heif" hidden onchange="pick(this)"></div></div><div class="dt">
     <h2>${old?'Edit':'Tambah'} santri</h2>
     ${tabBar()}
     <div id="pn_d">
@@ -1407,9 +1407,47 @@ async function crFace(auto){
     CR.s=Math.min(CR.hi,Math.max(CR.lo,CR.fw*.42/b.width));
     CR.x=CR.fw/2-(b.x+b.width/2)*CR.s;CR.y=CR.fh*.46-(b.y+b.height/2)*CR.s;crPut()}
   catch(e){if(n==CR.n&&!auto)toast('Deteksi wajah gagal. Atur manual sampai wajah masuk lingkaran.',1)}}
-function crOpen(f,cb){
+// ---- Membuka foto: dibaca -> (HEIC diubah ke JPG) -> dikecilkan maks 1600 px -> baru ditampilkan di jendela "Sesuaikan foto" ----
+const CR_MAX=1600;   // sisi terpanjang foto di jendela atur foto (hasil akhir tetap 280x350)
+const crHeic=f=>/hei[cf]/i.test((f.type||'')+' '+(f.name||''));
+function crImg(blob){return new Promise((ok,no)=>{
+  const u=URL.createObjectURL(blob),i=new Image();
+  i.onload=()=>{URL.revokeObjectURL(u);ok(i)};
+  i.onerror=()=>{URL.revokeObjectURL(u);no(new Error('decode'))};
+  i.src=u})}
+function crScript(u){return new Promise((ok,no)=>{
+  const s=document.createElement('script');s.src=u;s.onload=ok;s.onerror=()=>no(new Error('lib'));document.head.appendChild(s)})}
+// Baca foto; kalau browser tidak bisa membuka (HEIC dari iPhone), ubah dulu ke JPG
+async function crDecode(f){
+  try{return await crImg(f)}
+  catch(e){
+    if(f.type&&!crHeic(f))throw e;   // bukan HEIC (mis. file rusak) -> menyerah
+    if(!window.heic2any)await crScript('https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js');
+    let b=await window.heic2any({blob:f,toType:'image/jpeg',quality:.9});
+    if(Array.isArray(b))b=b[0];
+    return await crImg(b)}}
+// Kecilkan ke maks CR_MAX px
+function crSmall(im){return new Promise((ok,no)=>{
+  const w=im.naturalWidth,h=im.naturalHeight;
+  if(!w||!h)return no(new Error('size'));
+  const s=Math.min(1,CR_MAX/Math.max(w,h)),c=document.createElement('canvas'),g=c.getContext('2d');
+  c.width=Math.max(1,Math.round(w*s));c.height=Math.max(1,Math.round(h*s));
+  g.fillStyle='#0e1512';g.fillRect(0,0,c.width,c.height);
+  g.imageSmoothingQuality='high';g.drawImage(im,0,0,c.width,c.height);
+  c.toBlob(b=>b?ok(b):no(new Error('blob')),'image/jpeg',.92)})}
+async function crOpen(f,cb){
   const im=$('cr_im'),n=++CR.n;
-  CR.cb=cb;CR.fw=0;CR.P.clear();CR.on=true;CR.u=URL.createObjectURL(f);
+  CR.cb=cb;CR.fw=0;CR.P.clear();CR.on=false;
+  if(CR.u){URL.revokeObjectURL(CR.u);CR.u=''}
+  toast('Memproses foto...');
+  let b;
+  try{b=await crSmall(await crDecode(f))}
+  catch(e){
+    if(n!=CR.n)return;
+    crClose();
+    return toast(crHeic(f)?'Foto HEIC tidak bisa dibuka. Ubah ke JPG dulu, lalu coba lagi':'Foto tidak bisa diproses. Coba foto lain',1)}
+  if(n!=CR.n)return;
+  CR.u=URL.createObjectURL(b);CR.on=true;
   im.style.visibility='hidden';
   im.onerror=()=>{if(n!=CR.n)return;crClose();toast('Foto tidak bisa diproses',1)};
   im.onload=()=>{if(n!=CR.n)return;
